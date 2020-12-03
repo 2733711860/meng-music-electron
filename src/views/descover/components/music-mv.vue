@@ -1,0 +1,91 @@
+<template>
+	<div class="music-sheet">
+		<div class="top">
+			<span class="msg">
+				<i class="iconfont icon-iconset0269"></i>
+				<span>131.4万</span>
+			</span>
+			<i class="iconfont icon-iconset0481"></i>
+		</div>
+		
+		<div class="text">测试测试</div>
+	</div>
+</template>
+
+<script>
+export default {
+	mounted() {
+	}
+}
+</script>
+
+<style scoped="scoped" lang="less">
+	.music-sheet{
+		display: inline-block;
+		cursor: pointer;
+		border-radius: 5px;
+		.top{
+			width: 170px;
+			height: 115px;
+			position: relative;
+			overflow: hidden;
+			border-radius: 5px;
+			box-shadow: 0 6PX 18PX #9d9d9d;
+			background-image: url(../../../assets/image/11.jpg);
+			background-size: 100% 100%;
+			background-repeat: no-repeat;
+			opacity: .8;
+			transform: translateZ(0) scale(1, 1);
+			-webkit-transform: translateZ(0) scale(1, 1);
+			-moz-transform: translateZ(0) scale(1, 1);
+			-webkit-transition: transform .5s;
+			-moz-transition: transform .5s;
+			.icon-iconset0481{
+				color: #fff;
+				font-size: 20PX;
+				position: absolute;
+				bottom: 10px;
+				right: 10px;
+				opacity: 0;
+				-webkit-transition: opacity .5s;
+				-moz-transition: opacity .5s;
+			}
+			.msg{
+				width: 100%;
+				height: 30px;
+				background-image: linear-gradient(rgba(0, 0, 0, .6), rgba(0, 0, 0, 0));
+				color: #fff;
+				position: absolute;
+				top: 0;
+				right: 0;
+				font-size: 10PX;
+				border-top-left-radius: 5px;
+				border-top-right-radius: 5px;
+				text-align: right;
+				box-sizing: border-box;
+				padding: 5px 10px 0 0;
+				.icon-iconset0269{
+					font-size: 10PX;
+				}
+			}
+		}
+		.text{
+			padding: 8px 5px;
+			text-align: center;
+			display: -webkit-box;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			-webkit-line-clamp: 2;
+			-webkit-box-orient: vertical;
+		}
+	}
+	.music-sheet:hover{
+		.top{
+			transform: scale(1.05);
+			opacity: 1;
+			.icon-iconset0481{
+				opacity: 1;
+			}
+		}
+	}
+</style>
