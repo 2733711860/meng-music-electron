@@ -21,6 +21,7 @@
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.4",
     "@vue/cli-service": "^3.0.4",
+    "axios": "^0.21.0",
     "better-scroll": "^2.0.6",
     "electron": "^6.0.0",
     "electron-devtools-installer": "^3.1.0",
@@ -29,6 +30,7 @@
     "less": "^3.0.4",
     "less-loader": "^5.0.0",
     "lyric-parser": "^1.0.1",
+    "moment": "^2.29.1",
     "swiper": "3.4.2",
     "vue-cli-plugin-electron-builder": "^2.0.0-rc.5",
     "vue-template-compiler": "^2.6.10",

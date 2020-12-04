@@ -1,11 +1,11 @@
 <template>
 		<div class="swiper-container ry-swiper" id="rySwiper">
 			<div class="swiper-wrapper">
-				<div class="swiper-slide" v-for="i in 6">
+				<div class="swiper-slide" v-for="(item, index) in banners" :key="index + 'banner'">
 					<a href="javascript:;" class="ry-item">
 						<dl>
 							<dt>
-								<img src="../../../assets/image/11.jpg" class="ry-cert" /></dt>
+								<img :src="item.imageUrl" class="ry-cert" /></dt>
 						</dl>
 					</a>
 				</div>
@@ -15,14 +15,34 @@
 
 <script>
 import Swiper from 'swiper';
+import { getBanner } from '@/api/index.js';
 export default {
+	data() {
+		return {
+			banners: []
+		}
+	},
+	
 	mounted() {
-		new Swiper ('#rySwiper', {
-			autoplay: 4000,
-			loop: true,
-			slidesPerView: 'auto',
-			centeredSlides: true,
-		})
+		this.getData();
+	},
+	
+	methods: {
+		getData() {
+			getBanner().then(res => {
+				if (res.code == 200) {
+					this.banners = res.banners;
+					this.$nextTick(() => {
+						new Swiper ('#rySwiper', {
+							autoplay: 4000,
+							loop: true,
+							slidesPerView: 'auto',
+							centeredSlides: true,
+						})
+					})
+				}
+			})
+		}
 	}
 }
 </script>

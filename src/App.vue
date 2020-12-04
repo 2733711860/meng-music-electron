@@ -8,7 +8,7 @@
 			<music-footer></music-footer>
 		</div>
 		
-		<music-lyric></music-lyric>
+		<!-- <music-lyric></music-lyric> -->
   </div>
 </template>
 

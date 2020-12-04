@@ -7,7 +7,7 @@
 			<Icon icon="icon-iconset0420" isHover></Icon>
 		</div>
 		<div class="sheet-list">
-			<music-sheet class="item-sheet" v-for="i in 5" :key="i"></music-sheet>
+			<music-sheet class="item-sheet" v-for="(item, index) in sheets" :key="index + 'sheet'" :sheetDetail="item"></music-sheet>
 		</div>
 		
 		<music-list></music-list>
@@ -17,7 +17,7 @@
 			<Icon icon="icon-iconset0420" isHover></Icon>
 		</div>
 		<div class="sheet-list">
-			<music-mv class="item-mv" v-for="i in 4" :key="i"></music-mv>
+			<music-mv class="item-mv" v-for="(item, index) in mvList" :key="index + 'mv'" :mvDetails="item"></music-mv>
 		</div>
 	</div>
 </template>
@@ -28,9 +28,42 @@ import musicSheet from './components/music-sheet.vue';
 import musicMv from './components/music-mv.vue';
 import Icon from '@/components/music-left/Icon.vue';
 import musicList from './components/music-list.vue';
+import { getPersonalized, getPersonlMv } from '@/api/index.js';
 export default {
 	components: {
 		musicSwiper, musicSheet, Icon, musicList, musicMv
+	},
+	
+	data() {
+		return{
+			sheets: [],
+			mvList: []
+		}
+	},
+	
+	mounted() {
+		this.getSheet();
+		this.getMv();
+	},
+	
+	methods: {
+		getSheet() { // 获取推荐歌单
+			getPersonalized({
+				limit: 5
+			}).then(res => {
+				if (res.code == 200) {
+					this.sheets = res.result
+				}
+			})
+		},
+		
+		getMv() { // 获取推荐mv
+			getPersonlMv().then(res => {
+				if (res.code == 200) {
+					this.mvList = res.result.length > 3 ? res.result.slice(0, 4) : res.result;
+				}
+			})
+		}
 	}
 }
 </script>

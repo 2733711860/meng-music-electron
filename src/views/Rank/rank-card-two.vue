@@ -1,22 +1,31 @@
 <template>
 	<div class="music-sheet">
 		<div class="top">
-			<img src="../../assets/image/11.jpg" />
+			<img :src="`${rankDetail.coverImgUrl}?param=125y125`" />
 			<span class="msg">
 				<i class="iconfont icon-iconset0269"></i>
-				<span>131.4万</span>
+				<span>{{ rankDetail.playCount | addChineseUnit }}</span>
 			</span>
 			<i class="iconfont icon-iconset0481"></i>
 		</div>
 		
-		<div class="text">测试测试</div>
+		<div class="text">{{rankDetail.name}}</div>
 	</div>
 </template>
 
 <script>
+import { addChineseUnit } from '@/utils/song.js';
 export default {
-	mounted() {
-	}
+	props: {
+		rankDetail: {
+			type: Object,
+			default: () => {}
+		}
+	},
+	
+	filters: {
+		addChineseUnit
+	},
 }
 </script>
 
@@ -72,9 +81,9 @@ export default {
 			}
 		}
 		.text{
-			padding: 8px 5px;
+			width: 125px;
+			padding: 8px 0;
 			text-align: center;
-			display: -webkit-box;
 			overflow: hidden;
 			text-overflow: ellipsis;
 			-webkit-line-clamp: 2;

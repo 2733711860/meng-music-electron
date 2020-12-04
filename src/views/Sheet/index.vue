@@ -1,34 +1,46 @@
 <template>
 	<div class="sheet-page">
 		<div class="more-tag">
-			<span @click="showType = !showType">全部歌单</span>
+			<span @click="showType = !showType">{{cat}}</span>
 			<i class="el-icon-arrow-down" @click="showType = !showType"></i>
 			<more-type 
 				v-model="showType"
-				@choose="choose"></more-type>
+				@choose="chooseTag"
+				:allTags="sheetTypes"></more-type>
 		</div>
 		
 		<div class="hot-tags">
 			<span>热门标签：</span>
-			<span class="item-tag"><span>华语</span><i></i></span>
-			<span class="item-tag"><span>流行</span><i></i></span>
-			<span class="item-tag"><span>摇滚</span><i></i></span>
-			<span class="item-tag"><span>民谣</span><i></i></span>
-			<span class="item-tag"><span>电子</span><i></i></span>
-			<span class="item-tag"><span>另类/独行</span><i></i></span>
-			<span class="item-tag"><span>轻音乐</span><i></i></span>
-			<span class="item-tag"><span>综艺</span><i></i></span>
+			<span class="item-tag" v-for="(item, index) in hotSheetTypes" :key="index + 'hot'">
+				<span @click="chooseTag(item.name)">{{item.name}}</span><i></i>
+			</span>
 		</div>
 		
 		<div class="sheet-list">
-			<music-sheet class="itemSheet" v-for="i in 30"></music-sheet>
+			<music-sheet 
+				class="itemSheet" 
+				v-for="(item, index) in sheetList" 
+				:key="index + 'sheet'" 
+				:sheetDetail="item"></music-sheet>
 		</div>
+		
+		<el-pagination
+			class="sheet-pagination"
+			@size-change="handleSizeChange"
+			@current-change="handleCurrentChange"
+			:current-page="currentPage"
+			:page-sizes="[30, 50, 70, 100]"
+			:page-size="pageSize"
+			layout="total, sizes, prev, pager, next, jumper"
+			:total="total">
+		</el-pagination>
 	</div>
 </template>
 
 <script>
 import musicSheet from '../descover/components/music-sheet.vue';
 import moreType from './more-type.vue';
+import { getHotSheetType, getSheetType, getTopSheet } from '@/api/index.js';
 export default {
 	components: {
 		musicSheet, moreType
@@ -36,13 +48,70 @@ export default {
 	
 	data() {
 		return {
-			showType: false
+			showType: false,
+			sheetTypes: [], // 歌单分类
+			hotSheetTypes: [], // 热门歌单分类
+			sheetList: [], // 歌单列表
+			currentPage: 1,
+			cat: '全部',
+			total: 0, // 总共多少条数据
+			pageSize: 30, // 每页30条数据
 		}
 	},
 	
+	created() {
+		this.getTypes();
+		this.getHotTypes();
+		this.getSheets();
+	},
+	
 	methods: {
-		choose(val) {
-			console.log(val)
+		getTypes() { // 获取歌单分类
+			getSheetType().then(res => {
+				if (res.code == 200) {
+					this.sheetTypes = res.sub;
+				}
+			})
+		},
+		
+		getHotTypes() { // 获取热门歌单分类
+			getHotSheetType().then(res => {
+				if (res.code == 200) {
+					this.hotSheetTypes = res.tags;
+				}
+			})
+		},
+		
+		getSheets() { // 获取歌单
+			this.sheetList = [];
+			getTopSheet({
+				order: 'hot', // new最新，hot最热
+				cat: this.cat,
+				limit: this.pageSize,
+				offset: (this.currentPage - 1) * this.pageSize
+			}).then(res => {
+				if (res.code == 200) {
+					this.sheetList = res.playlists;
+					this.total = res.total;
+				}
+			})
+		},
+		
+		chooseTag(name) { // 选择热门标签
+			this.cat = name;
+			this.currentPage = 1;
+			this.getSheets();
+		},
+		
+		handleSizeChange(val) { // 每页数量发生变化
+			this.currentPage = 1;
+			this.pageSize = val;
+			this.getSheets();
+		},
+		
+		handleCurrentChange(val) { // 页码发生变化
+			this.currentPage = val;
+			this.getSheets();
 		}
 	}
 }
@@ -92,8 +161,12 @@ export default {
 			display: flex;
 			flex-wrap: wrap;
 			.itemSheet{
-				margin: 5px 17px 5px 10px;
+				margin: 5px 7px 15px 10px;
 			}
+		}
+		
+		.sheet-pagination{
+			margin: 20px;
 		}
 	}
 </style>

@@ -3,8 +3,8 @@
 		<div class="one-type">
 			<div class="left">语种：</div>
 			<div class="right">
-				<div class="item-type" v-for="i in 6">
-					<span :class="[languageValue == i ? 'choosed' : '']">华语</span>
+				<div class="item-type" v-for="(item, index) in languageType" :key="index + '10'">
+					<span :class="[languageValue == item.id ? 'choosed' : '']" @click="selectThisS(item)">{{item.name}}</span>
 					<i></i>
 				</div>
 			</div>
@@ -13,8 +13,8 @@
 		<div class="one-type">
 			<div class="left">分类：</div>
 			<div class="right">
-				<div class="item-type" v-for="i in 4">
-					<span :class="[typeValue == i ? 'choosed' : '']">男歌手</span>
+				<div class="item-type" v-for="(item, index) in sexType" :key="index + '11'">
+					<span :class="[sexValue == item.id ? 'choosed' : '']" @click="selectThisO(item)">{{item.name}}</span>
 					<i></i>
 				</div>
 			</div>
@@ -23,35 +23,93 @@
 		<div class="one-type borbot">
 			<div class="left">筛选：</div>
 			<div class="right">
-				<div class="item-type" v-for="i in initials" :key="i">
-					<span :class="[initialValue == i ? 'choosed' : '']" @click="selectThis(i)">{{i}}</span>
+				<div class="item-type" v-for="(item, index) in initials" :key="index + '12'">
+					<span :class="[initialValue == item.id ? 'choosed' : '']" @click="selectThis(item)">{{item.name}}</span>
 					<i></i>
 				</div>
 			</div>
 		</div>
 		<div class="singer-list">
-			<div class="item-singer" v-for="i in 20">
-				<img src="../../assets/image/11.jpg" />
-				<div>许嵩</div>
+			<div class="item-singer" v-for="(item, index) in singerList" :key="index + 'art'">
+				<img :src="`${item.img1v1Url}?param=100y100`" />
+				<div>{{item.name}}</div>
 			</div>
+		</div>
+		
+		<div style="text-align: right;padding: 20px;">
+			<el-button size="medium" icon="el-icon-arrow-left" @click="prevPage" :disabled="currentPage==1 ? true : false">上一页</el-button>
+			<el-button size="medium" @click="nextPage" :disabled="!hasMore">下一页<i class="el-icon-arrow-right el-icon--right"></i></el-button>
 		</div>
 	</div>
 </template>
 
 <script>
+import { languageType, sexType, initials } from './data.js';
+import { getSingerByType } from '@/api/index.js';
 export default {
 	data () {
 		return {
-			languageValue: '全部', // 选择的语种
-			typeValue: '全部', // 选择的分类
-			initials: ['全部', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'],
-			initialValue: '全部', // 选择的首字母
+			initialValue: '-1', // 选择的首字母
+			sexValue: '-1', // 选择的分类
+			languageValue: '-1', // 选择的语种
+			languageType: languageType,
+			sexType: sexType,
+			initials: initials,
+			singerList: [],
+			currentPage: 1,
+			cat: '全部',
+			pageSize: 30, // 每页30条数据
+			hasMore: true, // 是否有更多数据
 		}
 	},
 	
+	mounted() {
+		this.getSinger()
+	},
+	
 	methods: {
-		selectThis(val) {
-			this.initialValue = val;
+		getSinger() {
+			this.singerList = [];
+			getSingerByType({
+				limit: this.pageSize,
+				offset: (this.currentPage - 1) * this.pageSize,
+				type: this.sexValue,
+				area: this.languageValue,
+				initial: this.initialValue
+			}).then(res => {
+				if (res.code == 200) {
+					this.singerList = res.artists;
+					this.hasMore = res.more;
+				}
+			})
+		},
+		
+		selectThis(item) {
+			this.initialValue = item.id;
+			this.currentPage = 1;
+			this.getSinger();
+		},
+		
+		selectThisO(item) {
+			this.sexValue = item.id;
+			this.currentPage = 1;
+			this.getSinger();
+		},
+		
+		selectThisS(item) {
+			this.languageValue = item.id;
+			this.currentPage = 1;
+			this.getSinger();
+		},
+		
+		prevPage() {
+			this.currentPage--;
+			this.getSinger();
+		},
+		
+		nextPage() {
+			this.currentPage++;
+			this.getSinger();
 		}
 	}
 }
@@ -109,15 +167,23 @@ export default {
 					-webkit-transition: transform .5s;
 					-moz-transition: transform .5s;
 					transform: translateZ(0) scale(1, 1);
+					cursor: pointer;
 				}
 				img:hover{
 					transform: scale(1.1);
 				}
 				div{
+					width: 100px;
 					text-align: center;
 					margin-top: 8px;
+					overflow: hidden;
+					text-overflow: ellipsis;
+					white-space: nowrap;
 				}
 			}
+		}
+		.sheet-pagination{
+			margin: 20px;
 		}
 	}
 </style>

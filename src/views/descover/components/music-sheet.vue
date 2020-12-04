@@ -1,23 +1,32 @@
 <template>
 	<div class="music-sheet">
 		<div class="top">
-			<img src="../../../assets/image/11.jpg" />
+			<img :src="`${sheetDetail.picUrl ? sheetDetail.picUrl : sheetDetail.coverImgUrl}?param=125y125`" />
 			<span class="msg">
 				<i class="iconfont icon-iconset0269"></i>
-				<span>131.4万</span>
+				<span>{{sheetDetail.playCount | addChineseUnit}}</span>
 			</span>
 			<i class="iconfont icon-iconset0481"></i>
-			<div class="detail">测试测试测试测试测试测试测试测试测试测试测试测试</div>
+			<div class="detail">{{sheetDetail.copywriter ? sheetDetail.copywriter : sheetDetail.description}}</div>
 		</div>
 		
-		<div class="text">测试测试</div>
+		<div class="text">{{sheetDetail.name}}</div>
 	</div>
 </template>
 
 <script>
+import { addChineseUnit } from '@/utils/song.js';
 export default {
-	mounted() {
-	}
+	props: {
+		sheetDetail: {
+			type: Object,
+			default: () => {}
+		}
+	},
+	
+	filters: {
+		addChineseUnit
+	},
 }
 </script>
 
@@ -94,13 +103,14 @@ export default {
 			}
 		}
 		.text{
-			padding: 8px 5px;
+			padding: 8px 5px 0 5px;
 			text-align: center;
 			display: -webkit-box;
 			overflow: hidden;
 			text-overflow: ellipsis;
 			-webkit-line-clamp: 2;
 			-webkit-box-orient: vertical;
+			width: 125px;
 		}
 	}
 	.music-sheet:hover{

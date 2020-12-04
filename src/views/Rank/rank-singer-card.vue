@@ -1,13 +1,11 @@
 <template>
 	<div class="rank-card">
-		<img :src="`${imgs[rankDetail.ToplistType]}`" />
-		<i class="iconfont icon-iconset0481" title="播放全部"></i>
+		<img src="../../assets/image/rankA_bg.jpg" />
 		<span class="texts">{{ rankDetail.updateTime | toDate('MM月DD日') }} 更新</span>
 		<div class="music-list">
-			<div class="one-music" v-for="(item, index) in rankDetail.tracks" :key="index + 'tracks'">
+			<div class="one-music" v-for="(item, index) in rankDetail.artists.slice(0, 7)" :key="index + 'singer'">
 				<span>{{`0${index + 1}`}}</span>
 				<span class="musicName" :title="item.name">{{item.name}}</span>
-				<span class="singer" :title="item.singer">{{item.singer}}</span>
 			</div>
 			<div class="card-btn">查看全部></div>
 		</div>
@@ -19,13 +17,6 @@ import moment from 'moment';
 export default{
 	data () {
 		return{
-			imgs: {
-			  A: require('../../assets/image/rankA_bg.jpg'),
-			  H: require('../../assets/image/rankH_bg.jpg'),
-			  N: require('../../assets/image/rankN_bg.jpg'),
-			  O: require('../../assets/image/rankO_bg.jpg'),
-			  S: require('../../assets/image/rankS_bg.jpg')
-			},
 		}
 	},
 	
@@ -49,14 +40,6 @@ export default{
 		width: 240px;
 		border: 1px solid #e7e7e7;
 		position: relative;
-		.icon-iconset0481{
-			position: absolute;
-			right: 10px;
-			top: 50px;
-			color: #ececec;
-			font-size: 20px;
-			cursor: pointer;
-		}
 		.texts{
 			position: absolute;
 			top: 50px;
@@ -76,13 +59,6 @@ export default{
 				padding: 0 10px;
 				height: 35px;
 				cursor: pointer;
-				.singer{
-					width: 60px;
-					overflow: hidden;
-					text-overflow: ellipsis;
-					white-space: nowrap;
-					text-align: right;
-				}
 				.musicName{
 					flex: 1;
 					overflow: hidden;

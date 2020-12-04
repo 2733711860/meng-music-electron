@@ -3,40 +3,40 @@
 		<div class="title">选择标签</div>
 		
 		<div class="tags">
-			<div class="all">全部</div>
+			<div class="all" @click="checkThis('全部')">全部</div>
 			
 			<div class="one-type">
 				<div class="left">语种</div>
 				<div class="right">
-					<span v-for="i in 5">华语</span>
+					<span v-for="(item, index) in allTags.filter(aa => aa.category == '0')" :key="index + 'lan'" @click="checkThis(item.name)">{{item.name}}</span>
 				</div>
 			</div>
 			
 			<div class="one-type">
 				<div class="left">风格</div>
 				<div class="right">
-					<span v-for="i in 23">华语</span>
+					<span v-for="(item, index) in allTags.filter(aa => aa.category == '1')" :key="index + 'fen'" @click="checkThis(item.name)">{{item.name}}</span>
 				</div>
 			</div>
 			
 			<div class="one-type">
 				<div class="left">场景</div>
 				<div class="right">
-					<span v-for="i in 12">华语</span>
+					<span v-for="(item, index) in allTags.filter(aa => aa.category == '2')" :key="index + 'cha'" @click="checkThis(item.name)">{{item.name}}</span>
 				</div>
 			</div>
 			
 			<div class="one-type">
 				<div class="left">情感</div>
 				<div class="right">
-					<span v-for="i in 12">华语</span>
+					<span v-for="(item, index) in allTags.filter(aa => aa.category == '3')" :key="index + 'qin'" @click="checkThis(item.name)">{{item.name}}</span>
 				</div>
 			</div>
 			
 			<div class="one-type">
 				<div class="left">主题</div>
 				<div class="right">
-					<span v-for="i in 18">华语</span>
+					<span v-for="(item, index) in allTags.filter(aa => aa.category == '4')" :key="index + 'zhu'" @click="checkThis(item.name)">{{item.name}}</span>
 				</div>
 			</div>
 		</div>
@@ -54,7 +54,11 @@ export default {
 	},
 	
 	props: {
-		value: {}
+		value: {},
+		allTags: {
+			type: Array,
+			default: () => []
+		}
 	},
 	
 	watch: {
@@ -67,9 +71,13 @@ export default {
 	},
 	
 	methods: {
-		closeType() {
-			console.log(1111)
+		closeType() { // 关闭标签选择框
 			this.show = false
+		},
+		
+		checkThis(name) {
+			this.$emit('choose', name);
+			this.closeType();
 		}
 	}
 }

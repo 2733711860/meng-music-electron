@@ -11,22 +11,22 @@
 		
 		<div class="swiper-container" id="musicList" ref="mySwiper">
 		  <div class="swiper-wrapper">
-		    <div class="swiper-slide" v-for="m in 3">
-					<div class="item-music" v-for="i in 5">
-						<div class="item-index">{{i < 10 ? ('0' + i) : i}}</div>
+		    <div class="swiper-slide" v-for="(item, index) in newMusics" :key="index + '1'">
+					<div class="item-music" v-for="(one, i) in item" :key="i + '2'">
+						<div class="item-index">{{one.num+1 < 10 ? ('0' + (one.num+ 1)) : one.num+1}}</div>
 						<div class="img">
-							<img src="../../../assets/image/11.jpg" />
+							<img :src="`${one.image}?param=40y40`" />
 							<i class="iconfont icon-iconset0482"></i>
 						</div>
-						<div class="music-name">半城烟沙</div>
-						<div class="music-singer">许嵩</div>
-						<div class="music-album">所属专辑</div>
+						<div class="music-name">{{one.name}}</div>
+						<div class="music-singer">{{one.singer}}</div>
+						<div class="music-album">{{one.album}}</div>
 						<div class="music-btn">
 							<i class="iconfont icon-like"></i>
 							<i class="iconfont icon-download"></i>
 							<i class="iconfont icon-gengduo"></i>
 						</div>
-						<div class="music-time">03:41</div>
+						<div class="music-time">{{one.duration | format}}</div>
 					</div>
 				</div>
 		  </div>
@@ -37,6 +37,8 @@
 <script>
 import Icon from '@/components/music-left/Icon.vue';
 import Swiper from 'swiper';
+import { getNewSongs } from '@/api/index.js';
+import { createPlayList, format } from '@/utils';
 export default {
 	components: {
 		Icon
@@ -44,7 +46,12 @@ export default {
 	
 	data () {
 		return {
+			newMusics: []
 		}
+	},
+	
+	filters: {
+		format
 	},
 	
 	computed:{
@@ -54,17 +61,37 @@ export default {
 	},
 	
 	mounted() {
-		new Swiper ('#musicList', {
-			pagination: '.list-pagination',
-			paginationType : 'fraction',
-			navigation: {
-			  nextEl: '.nextBtn',
-			  prevEl: '.prevBtn',
-			},
-		})
+		this.getNewMusic();
 	},
 	
 	methods: {
+		getNewMusic() {
+			getNewSongs().then(res => {
+				if(res.code == 200) {
+					this.newMusics = this.sliceArr(this._formatSongs(res.result));
+					new Swiper ('#musicList', {
+						pagination: '.list-pagination',
+						paginationType : 'fraction',
+						navigation: {
+						  nextEl: '.nextBtn',
+						  prevEl: '.prevBtn',
+						},
+					})
+				}
+			})
+		},
+		
+		_formatSongs(list) { // 歌曲数据处理
+		  let ret = []
+		  list.forEach(item => {
+		    const musicData = item
+		    if (musicData.id) {
+		      ret.push(createPlayList(musicData.song))
+		    }
+		  })
+		  return ret
+		},
+		
 		prevFunc() {
 			this.swiper.slidePrev();
 		},
@@ -73,13 +100,16 @@ export default {
 			this.swiper.slideNext();
 		},
 		
-		sliceArr() { // 拆分数组，每五个一组
-			let arr = [0, 1, 2, 3, 4, 5, 6];
+		sliceArr(arr) { // 拆分数组，每五个一组
+		  arr = arr.map((item, index) => {
+				item.num = index;
+				return item
+			});
 			var result = [];
-			for(var i=0;i<arr.length;i+=5){
-				result.push(arr.slice(i,i+5));
+			for (var i=0; i<arr.length; i+=5) {
+				result.push(arr.slice(i, i+5));
 			}
-			console.log(result)
+			return result;
 		}
 	}
 }

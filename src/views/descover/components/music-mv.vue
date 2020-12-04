@@ -1,21 +1,31 @@
 <template>
 	<div class="music-sheet">
 		<div class="top">
+			<img :src="`${mvDetails.picUrl}?param=170y95`" />
 			<span class="msg">
 				<i class="iconfont icon-iconset0269"></i>
-				<span>131.4万</span>
+				<span>{{mvDetails.playCount | addChineseUnit}}</span>
 			</span>
 			<i class="iconfont icon-iconset0481"></i>
 		</div>
 		
-		<div class="text">测试测试</div>
+		<div class="text">{{mvDetails.name}}</div>
 	</div>
 </template>
 
 <script>
+import { addChineseUnit } from '@/utils/song.js';
 export default {
-	mounted() {
-	}
+	props: {
+		mvDetails: {
+			type: Object,
+			default: () => {}
+		}
+	},
+	
+	filters: {
+		addChineseUnit
+	},
 }
 </script>
 
@@ -26,20 +36,21 @@ export default {
 		border-radius: 5px;
 		.top{
 			width: 170px;
-			height: 115px;
+			height: 95px;
 			position: relative;
 			overflow: hidden;
 			border-radius: 5px;
 			box-shadow: 0 6PX 18PX #9d9d9d;
-			background-image: url(../../../assets/image/11.jpg);
-			background-size: 100% 100%;
-			background-repeat: no-repeat;
 			opacity: .8;
 			transform: translateZ(0) scale(1, 1);
 			-webkit-transform: translateZ(0) scale(1, 1);
 			-moz-transform: translateZ(0) scale(1, 1);
 			-webkit-transition: transform .5s;
 			-moz-transition: transform .5s;
+			img{
+				width: 100%;
+				height: 100%;
+			}
 			.icon-iconset0481{
 				color: #fff;
 				font-size: 20PX;
