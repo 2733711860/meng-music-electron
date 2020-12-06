@@ -18,7 +18,7 @@
 							<img :src="`${one.image}?param=40y40`" />
 							<i class="iconfont icon-iconset0482"></i>
 						</div>
-						<div class="music-name">{{one.name}}</div>
+						<div class="music-name" @click="playThis(one, newMusics)">{{one.name}}</div>
 						<div class="music-singer">{{one.singer}}</div>
 						<div class="music-album">{{one.album}}</div>
 						<div class="music-btn">
@@ -39,7 +39,10 @@ import Icon from '@/components/music-left/Icon.vue';
 import Swiper from 'swiper';
 import { getNewSongs } from '@/api/index.js';
 import { createPlayList, format } from '@/utils';
+import { music } from '@/mixin/music.js';
 export default {
+	mixins: [music],
+	
 	components: {
 		Icon
 	},

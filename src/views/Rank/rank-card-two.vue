@@ -1,5 +1,5 @@
 <template>
-	<div class="music-sheet">
+	<div class="music-sheet" @click="seeAll">
 		<div class="top">
 			<img :src="`${rankDetail.coverImgUrl}?param=125y125`" />
 			<span class="msg">
@@ -26,6 +26,14 @@ export default {
 	filters: {
 		addChineseUnit
 	},
+	
+	methods: {
+		seeAll() {
+			this.$router.push({
+				path: `/playlist/${this.rankDetail.id}`
+			})
+		}
+	}
 }
 </script>
 

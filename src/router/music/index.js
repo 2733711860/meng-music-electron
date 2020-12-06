@@ -57,5 +57,25 @@ export default [
 				}
 			}
 		]
-  }
+  },
+	{
+		path: '/playlist/:id',
+		name: 'playlist',
+		component: resolve => {
+			require(['@/views/Music/index.vue'], resolve)
+		},
+		meta: {
+			title: '歌单详情'
+		}
+	},
+	{
+		path: '/detail/:id',
+		name: 'detail',
+		component: resolve => {
+			require(['@/views/Singer/detail'], resolve)
+		},
+		meta: {
+			title: '歌手详情'
+		}
+	}
 ]

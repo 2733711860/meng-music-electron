@@ -9,7 +9,7 @@
 				<span class="musicName" :title="item.name">{{item.name}}</span>
 				<span class="singer" :title="item.singer">{{item.singer}}</span>
 			</div>
-			<div class="card-btn">查看全部></div>
+			<div class="card-btn" @click="seeAll">查看全部></div>
 		</div>
 	</div>
 </template>
@@ -39,6 +39,14 @@ export default{
 	filters: {
 		toDate(val, format) {
 			return moment(val).format(format || 'YYYY-MM-DD')
+		}
+	},
+	
+	methods: {
+		seeAll() {
+			this.$router.push({
+				path: `/playlist/${this.rankDetail.id}`
+			})
 		}
 	}
 }

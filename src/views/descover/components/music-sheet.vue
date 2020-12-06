@@ -1,5 +1,5 @@
 <template>
-	<div class="music-sheet">
+	<div class="music-sheet" @click="goDetail">
 		<div class="top">
 			<img :src="`${sheetDetail.picUrl ? sheetDetail.picUrl : sheetDetail.coverImgUrl}?param=125y125`" />
 			<span class="msg">
@@ -27,6 +27,14 @@ export default {
 	filters: {
 		addChineseUnit
 	},
+	
+	methods: {
+		goDetail () {
+			this.$router.push({
+				path: `/playlist/${this.sheetDetail.id}`
+			})
+		}
+	}
 }
 </script>
 

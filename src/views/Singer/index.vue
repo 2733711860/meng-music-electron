@@ -30,7 +30,7 @@
 			</div>
 		</div>
 		<div class="singer-list">
-			<div class="item-singer" v-for="(item, index) in singerList" :key="index + 'art'">
+			<div class="item-singer" v-for="(item, index) in singerList" :key="index + 'art'" @click="goDetail(item)">
 				<img :src="`${item.img1v1Url}?param=100y100`" />
 				<div>{{item.name}}</div>
 			</div>
@@ -110,6 +110,12 @@ export default {
 		nextPage() {
 			this.currentPage++;
 			this.getSinger();
+		},
+		
+		goDetail(item) {
+			this.$router.push({
+				path: `/detail/${item.id}`
+			})
 		}
 	}
 }

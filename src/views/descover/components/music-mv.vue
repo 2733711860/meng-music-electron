@@ -81,13 +81,12 @@ export default {
 			}
 		}
 		.text{
-			padding: 8px 5px;
+			width: 170px;
+			padding: 8px 0;
 			text-align: center;
-			display: -webkit-box;
 			overflow: hidden;
 			text-overflow: ellipsis;
-			-webkit-line-clamp: 2;
-			-webkit-box-orient: vertical;
+			white-space: nowrap;
 		}
 	}
 	.music-sheet:hover{

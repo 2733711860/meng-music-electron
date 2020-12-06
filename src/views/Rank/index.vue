@@ -30,7 +30,7 @@
 import rankCard from './rank-card.vue';
 import rankCardTwo from './rank-card-two.vue';
 import rankSingerCard from './rank-singer-card.vue';
-import { getRanks, getRankDetail, getRankSinger } from '@/api/index.js';
+import { getRanks, getRankSinger, getSheetDetail, getMusicDetail } from '@/api/index.js';
 import { createSheetToSong } from '@/utils';
 export default {
 	components: {
@@ -65,10 +65,9 @@ export default {
 					this.list = res.list;
 					this.list.forEach(async item => {
 					  if ( item.ToplistType ) {
-					    let playList = await this.getDetail(item.id);
-							item.tracks = playList.slice(0, 7).map(track => {
-							  return createSheetToSong(track)
-							})
+					    let trackIds = await this.getDetail(item.id);
+							const songDetails = await this.getSongDetail(trackIds.slice(0, 7));
+							item.tracks = this._formatSongs(songDetails);
 					  }
 					})
 				}
@@ -77,21 +76,44 @@ export default {
 		
 		getDetail(idx) { // 获取榜单详情
 			return new Promise((resolve, reject) => {
-				getRankDetail({
+				getSheetDetail({
 					id: idx
-				}).then(res => {
+				}).then(async res => {
 					if (res.code == 200) {
-						resolve(res.playlist.tracks);
-					} else {
-						resolve([]);
+						const trackIds = res.playlist.trackIds.map(({ id }) => id);
+						resolve(trackIds);
 					}
 				})
 			})
 		},
 		
+		getSongDetail(trackIds) { // 获取歌曲详情
+			return new Promise((resolve, reject) => {
+				getMusicDetail({
+					ids: trackIds.join(',')
+				}).then(res => {
+					if (res.code == 200) {
+						resolve(res.songs)
+					} else {
+						resolve([])
+					}
+				})
+			})
+		},
+		
+		_formatSongs(list) { // 歌曲数据处理
+		  let ret = []
+		  list.forEach(item => {
+		    const musicData = item
+		    if (musicData.id) {
+		      ret.push(createSheetToSong(musicData))
+		    }
+		  })
+		  return ret
+		},
+		
 		getSinger() { // 获取歌手榜
 			getRankSinger().then(res => {
-					console.log(res)
 				if (res.code == 200) {
 					this.topArtist = res.list;
 				}

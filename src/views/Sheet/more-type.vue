@@ -125,7 +125,9 @@ export default {
 					display: flex;
 					flex-wrap: wrap;
 					span{
-						padding: 8px 23px;
+						padding: 8px 0;
+						width: 73px;
+						text-align: center;
 						border: 1px solid #e7e7e7;
 						// margin: 0 0 10px 0;
 					}

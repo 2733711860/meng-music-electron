@@ -14,3 +14,21 @@
 	border-radius: 5PX;
 	background-color: rgba(0, 0, 0, 0.1);
 }
+
+.hideDiv{
+	display: none;
+}
+.visiHideDiv{
+	visibility: hidden;
+}
+.ellipsis{
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.borbott:not(:last-child){
+	border-bottom: 1px solid #f1f1f1;
+}
+.colorDan{
+	color: #969696;
+}

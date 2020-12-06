@@ -30,6 +30,25 @@ export const getRankSinger = params => get(`${baseUrl}/toplist/artist`, params) 
 
 export const getSingerByType = params => get(`${baseUrl}/artist/list`, params) // 根据分类获取歌手列表
 
+export const getSheetDetail = params => get(`${baseUrl}/playlist/detail`, params) // 歌单详情
+
+export const getMusicDetail = params => get(`${baseUrl}/song/detail`, params) // 歌曲详情
+
+export const getSimiSheet = params => get(`${baseUrl}/related/playlist`, params) // 相关歌单推荐
+
+export const getLikeUsers = params => get(`${baseUrl}/playlist/subscribers`, params) // 获取歌单收藏者
+
+export const getSingerDetail = params => get(`${baseUrl}/artist/detail`, params) // 获取歌手详情
+
+export const getSimiSinger = params => get(`${baseUrl}/simi/artist`, params) // 获得相似歌手
+
+export const getSingerSong = params => get(`${baseUrl}/artists`, params) // 获取歌手单曲
+
+export const getSingerMv = params => get(`${baseUrl}/artist/mv`, params) // 获取歌手 mv
+
+export const getSingerAlbum = params => get(`${baseUrl}/artist/album`, params) // 获取歌手专辑
+
+
 
 
 
