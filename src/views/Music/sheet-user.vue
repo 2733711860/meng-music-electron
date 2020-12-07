@@ -3,7 +3,7 @@
 		<div class="singer-list">
 			<div class="item-singer" v-for="(item, index) in likeUsers" :key="index + 'art'">
 				<img :src="`${item.avatarUrl}?param=80y80`" />
-				<div>{{item.nickname}}</div>
+				<div class="ellipsis">{{item.nickname}}</div>
 			</div>
 		</div>
 		
@@ -92,9 +92,6 @@ export default {
 				width: 80px;
 				text-align: center;
 				margin-top: 8px;
-				overflow: hidden;
-				text-overflow: ellipsis;
-				white-space: nowrap;
 			}
 		}
 	}

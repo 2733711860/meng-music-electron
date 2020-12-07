@@ -32,7 +32,7 @@
 		<div class="singer-list">
 			<div class="item-singer" v-for="(item, index) in singerList" :key="index + 'art'" @click="goDetail(item)">
 				<img :src="`${item.img1v1Url}?param=100y100`" />
-				<div>{{item.name}}</div>
+				<div class="ellipsis">{{item.name}}</div>
 			</div>
 		</div>
 		
@@ -182,9 +182,6 @@ export default {
 					width: 100px;
 					text-align: center;
 					margin-top: 8px;
-					overflow: hidden;
-					text-overflow: ellipsis;
-					white-space: nowrap;
 				}
 			}
 		}

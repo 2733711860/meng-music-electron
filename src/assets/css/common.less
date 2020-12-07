@@ -1,0 +1,44 @@
+// clamp
+.textoverflow(@clamp: 1) {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: @clamp;
+  overflow: hidden;
+}
+
+// 背景图片地址和大小
+.bg(@url) {
+  background-image: url(@url);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+// width height
+.wh(@w: auto, @h: auto) {
+  width: @w;
+  height: @h;
+}
+
+//flex box
+.flexbox(@jc: flex-start, @ai: stretch, @fd: row, @fw: nowrap) {
+  display: flex;
+  justify-content: @jc;
+  align-items: @ai;
+  flex-direction: @fd;
+  flex-wrap: @fw;
+}
+
+.css-position(@position:static, @top:auto, @right:auto, @bottom:auto, @left:auto, @transform: none){
+	position: @position;
+	top: @top;
+	right: @right;
+	bottom: @bottom;
+	left: @left;
+	transform: @transform;
+}
+
+.fontStyle(@fontSize: medium, @color, @fontWeight: normal){
+	font-size: @fontSize;
+	color: @color;
+	font-weight: @fontWeight;
+}

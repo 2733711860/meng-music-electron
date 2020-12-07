@@ -2,7 +2,7 @@
 	<div class="sheet-top" v-if="sheetDetails">
 		<img :src="`${sheetDetails.coverImgUrl}?param=180y180`" />
 		<div class="right">
-			<div class="line-one marbott">
+			<div class="line-one marbott flex-center">
 				<span class="title ellipsis">{{sheetDetails.name}}</span>
 				<span class="playNum colorDan">播放量：{{ sheetDetails.playCount | addChineseUnit }}</span>
 			</div>
@@ -13,11 +13,11 @@
 				<span class="colorDan">{{sheetDetails.updateTime | changeTime}}</span>
 			</div>
 			
-			<div class="line-three marbott colorDan">
+			<div class="line-three marbott colorDan ellipsis">
 				分类：{{tagsText}}
 			</div>
 			
-			<div class="line-three colorDan">
+			<div class="line-three colorDan ellipsis">
 				简介：{{sheetDetails.description}}
 			</div>
 			
@@ -77,9 +77,6 @@ export default {
 				color: #969696;
 			}
 			.line-one{
-				display: flex;
-				align-items: center;
-				justify-content: space-between;
 				.title{
 					font-size: 20px;
 					font-weight: bold;
@@ -97,11 +94,6 @@ export default {
 				span{
 					margin-right: 10px;
 				}
-			}
-			.line-three{
-				overflow: hidden;
-				text-overflow: ellipsis;
-				white-space: nowrap;
 			}
 			.line-btn{
 				margin-top: 20px;

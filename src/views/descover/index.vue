@@ -69,25 +69,21 @@ export default {
 </script>
 
 <style scoped="scoped" lang="less">
+	@import url('../../assets/css/common.less');
 	.descover-page{
 		padding: 0 10px;
 		box-sizing: border-box;
 		.sheet-list{
-			display: flex;
-			justify-content: space-between;
+			.flexbox(space-between);
 			padding: 10px;
 		}
 		
 		.title{
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
 			padding: 30PX 10PX 5PX 10PX;
 			border-bottom: 1PX solid #ededed;
+			.flexbox(space-between, center);
 			span{
-				color: #333;
-				font-size: 16PX;
-				font-weight: bold;
+				.fontStyle(16px, #333, bold);
 			}
 		}
 	}

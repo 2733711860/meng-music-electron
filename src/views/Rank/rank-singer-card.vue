@@ -3,9 +3,9 @@
 		<img src="../../assets/image/rankA_bg.jpg" />
 		<span class="texts">{{ rankDetail.updateTime | toDate('MM月DD日') }} 更新</span>
 		<div class="music-list">
-			<div class="one-music" v-for="(item, index) in rankDetail.artists.slice(0, 7)" :key="index + 'singer'">
+			<div class="one-music flex-center" v-for="(item, index) in rankDetail.artists.slice(0, 7)" :key="index + 'singer'">
 				<span>{{`0${index + 1}`}}</span>
-				<span class="musicName" :title="item.name">{{item.name}}</span>
+				<span class="musicName ellipsis" :title="item.name">{{item.name}}</span>
 			</div>
 			<div class="card-btn">查看全部></div>
 		</div>
@@ -53,17 +53,11 @@ export default{
 		}
 		.music-list{
 			.one-music{
-				display: flex;
-				align-items: center;
-				justify-content: space-between;
 				padding: 0 10px;
 				height: 35px;
 				cursor: pointer;
 				.musicName{
 					flex: 1;
-					overflow: hidden;
-					text-overflow: ellipsis;
-					white-space: nowrap;
 					padding: 0 10px;
 				}
 			}

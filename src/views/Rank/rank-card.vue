@@ -4,10 +4,10 @@
 		<i class="iconfont icon-iconset0481" title="播放全部"></i>
 		<span class="texts">{{ rankDetail.updateTime | toDate('MM月DD日') }} 更新</span>
 		<div class="music-list">
-			<div class="one-music" v-for="(item, index) in rankDetail.tracks" :key="index + 'tracks'">
+			<div class="one-music flex-center" v-for="(item, index) in rankDetail.tracks" :key="index + 'tracks'">
 				<span>{{`0${index + 1}`}}</span>
-				<span class="musicName" :title="item.name">{{item.name}}</span>
-				<span class="singer" :title="item.singer">{{item.singer}}</span>
+				<span class="musicName ellipsis" :title="item.name">{{item.name}}</span>
+				<span class="singer ellipsis" :title="item.singer">{{item.singer}}</span>
 			</div>
 			<div class="card-btn" @click="seeAll">查看全部></div>
 		</div>
@@ -78,24 +78,15 @@ export default{
 		}
 		.music-list{
 			.one-music{
-				display: flex;
-				align-items: center;
-				justify-content: space-between;
 				padding: 0 10px;
 				height: 35px;
 				cursor: pointer;
 				.singer{
 					width: 60px;
-					overflow: hidden;
-					text-overflow: ellipsis;
-					white-space: nowrap;
 					text-align: right;
 				}
 				.musicName{
 					flex: 1;
-					overflow: hidden;
-					text-overflow: ellipsis;
-					white-space: nowrap;
 					padding: 0 10px;
 				}
 			}

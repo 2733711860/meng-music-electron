@@ -39,13 +39,13 @@ export default {
 </script>
 
 <style scoped="scoped" lang="less">
+	@import url('../../../assets/css/common.less');
 	.music-sheet{
 		display: inline-block;
 		cursor: pointer;
 		border-radius: 5px;
 		.top{
-			width: 125px;
-			height: 125px;
+			.wh(125px, 125px);
 			position: relative;
 			overflow: hidden;
 			border-radius: 5px;
@@ -57,8 +57,7 @@ export default {
 			-webkit-transition: transform .5s;
 			-moz-transition: transform .5s;
 			img{
-				width: 100%;
-				height: 100%;
+				.wh(100%, 100%);
 			}
 			.icon-iconset0481{
 				color: #fff;

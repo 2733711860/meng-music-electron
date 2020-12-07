@@ -32,40 +32,32 @@ export default {
 </script>
 
 <style lang="less">
+	@import url('assets/css/common.less');
 	*{
 		padding: 0;
 		margin: 0;
 	}
 	html, body, #app{
-		height: 100%;
-		width: 100%;
+		.wh(100%, 100%);
 		overflow: hidden;
 	}
 	#app{
-		display: flex;
-		justify-content: space-between;
-		font-size: 13PX;
-		color: #6b6b6b;
+		.flexbox(space-between);
+		.fontStyle(13px, #6b6b6b);
 		font-family: "microsoft yahei";
 		position: relative;
 		.music-left{
-			width: 200px;
-			height: 100%;
+			.wh(200px, 100%);
 		}
 		.music-right{
+			.wh(auto, 100%);
+			.flexbox(space-between, center, column);
+			.bg('../image/11.jpg');
 			flex: 1;
 			overflow-x: auto;
-			height: 100%;
-			display: flex;
-			flex-direction: column;
-			justify-content: space-between;
-			align-items: center;
 			position: relative;
-			background-image: url(assets/image/11.jpg);
-			background-repeat: no-repeat;
-			background-size: 100% 100%;
 			.view-page{
-				width: 100%;
+				.wh(100%, auto);
 				flex: 1;
 				overflow-y: auto;
 				background-color: #fff;
