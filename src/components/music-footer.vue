@@ -9,8 +9,8 @@
 			:disabled="!currentMusic.id"></el-slider>
 		<div class="footer-tool">
 			<div class="music-msg">
-				<img src="../assets/image/11.jpg" class="music-cover" />
-				<div class="music-detail">
+				<img :src="currentMusic.id ? `${currentMusic.image}?param=50y50` : require('../assets/image/11.jpg')" class="music-cover" />
+				<div class="music-detail" v-show="currentMusic.id">
 					<div class="title">{{currentMusic.singer}} - {{currentMusic.name}}</div>
 					<div class="time">{{ currentTime | format }}/{{ currentMusic.duration % 3600 | format }}</div>
 				</div>
@@ -175,7 +175,7 @@ export default {
 		.el-slider__button-wrapper{
 			width: 16px;
 			height: 16px;
-			top: -8.5px;
+			top: -9.1px;
 			.el-slider__button{
 				width: 6px;
 				height: 6px;
@@ -197,7 +197,7 @@ export default {
 			display: none;
 			width: 17px;
 			height: 17px;
-			top: -8px;
+			top: -9px;
 			.el-slider__button{
 				width: 7px;
 				height: 7px;

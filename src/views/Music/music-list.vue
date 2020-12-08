@@ -15,9 +15,9 @@
 		
 		<div class="one-line borbott" v-for="(item, index) in songList" :key="index + 'song'">
 			<i class="iconfont icon-like"></i>
-			<span class="title ellipsis">{{item.name}}</span>
+			<span class="title ellipsis" @click="playThis(item, index)">{{item.name}}</span>
 			<span class="btn visiHideDiv">
-				<i class="iconfont icon-iconset0481" title="播放/暂停"></i>
+				<i class="iconfont icon-iconset0481" title="播放" @click="playThis(item, index)"></i>
 				<i class="iconfont icon-download" title="下载"></i>
 				<i class="iconfont icon-gengduo" title="更多"></i>
 			</span>
@@ -30,6 +30,7 @@
 
 <script>
 import { format } from '@/utils';
+import { mapGetters, mapMutations, mapActions } from 'vuex';
 export default {
 	props: {
 		songList: {
@@ -41,6 +42,20 @@ export default {
 	filters: {
 		format
 	},
+	
+	methods: {
+		playThis(music, index) { // 播放音乐
+			this.selectPlay({
+			  list: this.songList,
+			  index,
+				music
+			});
+		},
+		
+		...mapActions([
+		  "selectPlay"
+		])
+	}
 }
 </script>
 
@@ -61,6 +76,7 @@ export default {
 			}
 			.title{
 				flex: 1;
+				cursor: pointer;
 			}
 			.singer{
 				width: 100px;

@@ -2,7 +2,7 @@
   <div id="app">
 		<music-left class="music-left"></music-left>
 		
-		<div class="music-right">
+		<div class="music-right" :style="{ backgroundImage: picUrl }">
 			<music-header></music-header>
 			<router-view class="view-page"></router-view>
 			<music-footer></music-footer>
@@ -20,11 +20,22 @@ import musicHeader from '@/components/music-header.vue';
 import musicFooter from '@/components/music-footer.vue';
 import musicLyric from '@/components/music-lyric/music-lyric.vue';
 import musicAudio from '@/components/music-audio.vue';
+import { mapGetters, mapMutations, mapActions } from 'vuex';
 export default {
 	name: 'meng-music',
 	
 	components: {
 		musicLeft, musicHeader, musicFooter, musicLyric, musicAudio
+	},
+	
+	computed: {
+	  ...mapGetters([ 'currentMusic' ]),
+		
+		picUrl() {
+		  return this.currentMusic.id && this.currentMusic.image
+		  	? `url(${this.currentMusic.image}?param=300y300)`
+		  	: "url("+require('./assets/image/11.jpg')+")"
+		},
 	},
 }
 </script>
@@ -50,7 +61,8 @@ export default {
 		.music-right{
 			.wh(auto, 100%);
 			.flexbox(space-between, center, column);
-			.bg('../image/11.jpg');
+			background-repeat: no-repeat;
+			background-size: 100% 100%;
 			flex: 1;
 			overflow-x: auto;
 			position: relative;
