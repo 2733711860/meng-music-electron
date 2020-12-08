@@ -45,15 +45,15 @@ export default {
 </script>
 
 <style scoped="scoped" lang="less">
+	@import url('../../assets/css/common.less');
 	.music-list{
 		padding-bottom: 30px;
 		.iconfont{
 			cursor: pointer;
 		}
 		.one-line{
+			.flexbox(flex-start, center);
 			padding: 0 10px;
-			display: flex;
-			align-items: center;
 			height: 40px;
 			span{
 				padding: 0 10px;
@@ -73,6 +73,7 @@ export default {
 				text-align: center;
 			}
 			.btn{
+				.flexbox(space-between);
 				width: 100px;
 				display: flex;
 				justify-content: space-between;

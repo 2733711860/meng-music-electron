@@ -70,15 +70,14 @@ export default {
 </script>
 
 <style scoped="scoped" lang="less">
+	@import url('../../assets/css/common.less');
 	.singer-list{
-		display: flex;
-		flex-wrap: wrap;
+		.flexbox(flex-start, stretch, row, wrap);
 		padding: 10px 0;
 		.item-singer{
 			margin: 0 17px 20px 10px;
 			img{
-				width: 80px;
-				height: 80px;
+				.wh(80px, 80px);
 				border-radius: 50%;
 				-webkit-transition: transform .5s;
 				-moz-transition: transform .5s;

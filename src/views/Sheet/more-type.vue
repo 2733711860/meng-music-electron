@@ -84,18 +84,15 @@ export default {
 </script>
 
 <style scoped="scoped" lang="less">
+	@import url('../../assets/css/common.less');
 	.more-type{
-		position: absolute;
-		width: 500px;
-		height: 350px;
+		.css-position(absolute, 40px, auto, auto, -5px);
+		.wh(500px, 350px);
+		.flexbox(flex-start, stretch, column);
 		box-shadow: 0 4px 10px 1px #9d9d9d;
 		background-color: #FFFFFF;
 		z-index: 100;
-		top: 40px;
-		left: -5px;
 		border-radius: 5px;
-		display: flex;
-		flex-direction: column;
 		.title{
 			height: 40px;
 			line-height: 40px;
@@ -121,23 +118,20 @@ export default {
 					padding: 8px 10px;
 				}
 				.right{
+					.flexbox(flex-start, stretch, row, wrap);
 					flex: 1;
-					display: flex;
-					flex-wrap: wrap;
 					span{
 						padding: 8px 0;
 						width: 73px;
 						text-align: center;
 						border: 1px solid #e7e7e7;
-						// margin: 0 0 10px 0;
 					}
 				}
 			}
 		}
 		.mask{
+			.wh(100vw, 100vh);
 			position: absolute;
-			width: 100vw;
-			height: 100vh;
 			z-index: -1;
 		}
 	}

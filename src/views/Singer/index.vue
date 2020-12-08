@@ -122,6 +122,7 @@ export default {
 </script>
 
 <style scoped="scoped" lang="less">
+	@import url('../../assets/css/common.less');
 	.singer-page{
 		padding: 0 20px;
 		box-sizing: border-box;
@@ -132,9 +133,8 @@ export default {
 		.one-type{
 			display: flex;
 			.right{
+				.flexbox(flex-start, stretch, row, wrap);
 				flex: 1;
-				display: flex;
-				flex-wrap: wrap;
 				.item-type{
 					margin-bottom: 10px;
 					span{
@@ -146,8 +146,7 @@ export default {
 						background-color: #e5e5e5;
 					}
 					i{
-						width: 1.5px;
-						height: 10px;
+						.wh(1.5px, 10px);
 						background-color: #dedede;
 						margin: 0 10px;
 						display: inline-block;
@@ -161,14 +160,12 @@ export default {
 			}
 		}
 		.singer-list{
-			display: flex;
-			flex-wrap: wrap;
+			.flexbox(flex-start, stretch, row, wrap);
 			padding: 10px 0;
 			.item-singer{
 				margin: 0 18px 20px 8px;
 				img{
-					width: 100px;
-					height: 100px;
+					.wh(100px, 100px);
 					border-radius: 50%;
 					-webkit-transition: transform .5s;
 					-moz-transition: transform .5s;

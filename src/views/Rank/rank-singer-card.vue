@@ -36,20 +36,17 @@ export default{
 </script>
 
 <style scoped="scoped" lang="less">
+	@import url('../../assets/css/common.less');
 	.rank-card{
 		width: 240px;
 		border: 1px solid #e7e7e7;
 		position: relative;
 		.texts{
-			position: absolute;
-			top: 50px;
-			left: 60px;
-			color: #e1e1e1;
-			font-size: 9px;
+			.css-position(absolute, 50px, auto, auto, 60px);
+			.fontStyle(9px, #e1e1e1);
 		}
 		img{
-			width: 100%;
-			height: 80px;
+			.wh(100%, 80px);
 		}
 		.music-list{
 			.one-music{

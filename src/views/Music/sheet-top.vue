@@ -57,12 +57,12 @@ export default {
 </script>
 
 <style scoped="scoped" lang="less">
+	@import url('../../assets/css/common.less');
 	.sheet-top{
 		display: flex;
 		padding: 10px 20px;
 		img{
-			width: 180px;
-			height: 180px;
+			.wh(180px, 180px);
 			border-radius: 5px;
 			margin-right: 10px;
 		}
@@ -84,11 +84,9 @@ export default {
 				}
 			}
 			.line-two{
-				display: flex;
-				align-items: center;
+				.flexbox(flex-start, center);
 				img{
-					width: 30px;
-					height: 30px;
+					.wh(30px, 30px);
 					border-radius: 50%;
 				}
 				span{

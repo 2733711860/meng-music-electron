@@ -38,13 +38,13 @@ export default {
 </script>
 
 <style scoped="scoped" lang="less">
+	@import url('../../assets/css/common.less');
 	.music-sheet{
 		display: inline-block;
 		cursor: pointer;
 		border-radius: 5px;
 		.top{
-			width: 125px;
-			height: 125px;
+			.wh(125px, 125px);
 			position: relative;
 			overflow: hidden;
 			border-radius: 5px;
@@ -56,46 +56,35 @@ export default {
 			-webkit-transition: transform .5s;
 			-moz-transition: transform .5s;
 			img{
-				width: 100%;
-				height: 100%;
+				.wh(100%, 100%);
 			}
 			.icon-iconset0481{
-				color: #fff;
-				font-size: 20PX;
-				position: absolute;
-				bottom: 10px;
-				right: 10px;
+				.fontStyle(20px, #fff);
+				.css-position(absolute, auto, 10px, 10px);
 				opacity: 0;
 				-webkit-transition: opacity .5s;
 				-moz-transition: opacity .5s;
 			}
 			.msg{
-				width: 100%;
-				height: 30px;
+				.wh(100%, 30px);
+				.css-position(absolute, 0, 0);
+				.fontStyle(10px, #fff);
 				background-image: linear-gradient(rgba(0, 0, 0, .6), rgba(0, 0, 0, 0));
-				color: #fff;
-				position: absolute;
-				top: 0;
-				right: 0;
-				font-size: 10PX;
 				border-top-left-radius: 5px;
 				border-top-right-radius: 5px;
 				text-align: right;
 				box-sizing: border-box;
 				padding: 5px 10px 0 0;
 				.icon-iconset0269{
-					font-size: 10PX;
+					font-size: 10px;
 				}
 			}
 		}
 		.text{
+			.textoverflow(2);
 			width: 125px;
 			padding: 8px 0;
 			text-align: center;
-			overflow: hidden;
-			text-overflow: ellipsis;
-			-webkit-line-clamp: 2;
-			-webkit-box-orient: vertical;
 		}
 	}
 	.music-sheet:hover{

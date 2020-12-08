@@ -71,15 +71,15 @@ export default {
 </script>
 
 <style scoped="scoped" lang="less">
+	@import url('../../../assets/css/common.less');
 	.sheet-detail{
 		.title{
 			font-size: 20px;
 			font-weight: bold;
 		}
 		.sheet-list{
+			.flexbox(flex-start, stretch, row, wrap);
 			margin: 20px 0;
-			display: flex;
-			flex-wrap: wrap;
 			.sheet{
 				margin: 0 8px 15px 8px;
 			}

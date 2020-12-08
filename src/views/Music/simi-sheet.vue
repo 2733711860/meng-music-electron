@@ -35,13 +35,13 @@ export default {
 </script>
 
 <style scoped="scoped" lang="less">
+	@import url('../../assets/css/common.less');
 	.music-sheet{
 		display: inline-block;
 		cursor: pointer;
 		border-radius: 5px;
 		.top{
-			width: 125px;
-			height: 125px;
+			.wh(125px, 125px);
 			position: relative;
 			overflow: hidden;
 			border-radius: 5px;
@@ -53,27 +53,19 @@ export default {
 			-webkit-transition: transform .5s;
 			-moz-transition: transform .5s;
 			img{
-				width: 100%;
-				height: 100%;
+				.wh(100%, 100%);
 			}
 			.icon-iconset0481{
-				color: #fff;
-				font-size: 40PX;
-				position: absolute;
+				.fontStyle(40px, #fff);
+				.css-position(absolute, 50%, auto, auto, 50%);
 				z-index: 2;
-				top: 50%;
-				left: 50%;
 				transform: translate(-50%, -50%);
 				opacity: 0;
 				-webkit-transition: opacity .5s;
 				-moz-transition: opacity .5s;
 			}
 			.mask{
-				position: absolute;
-				top: 0;
-				right: 0;
-				bottom: 0;
-				left: 0;
+				.css-position(absolute, 0, 0, 0, 0);
 				background: rgba(0, 0, 0, .5);
 				z-index: 1;
 				opacity: 0;
@@ -81,13 +73,9 @@ export default {
 			}
 		}
 		.text{
+			.textoverflow(2);
 			padding: 8px 5px 0 5px;
 			text-align: center;
-			display: -webkit-box;
-			overflow: hidden;
-			text-overflow: ellipsis;
-			-webkit-line-clamp: 2;
-			-webkit-box-orient: vertical;
 			width: 125px;
 		}
 	}

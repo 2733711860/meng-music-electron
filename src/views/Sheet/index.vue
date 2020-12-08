@@ -118,6 +118,7 @@ export default {
 </script>
 
 <style scoped="scoped" lang="less">
+	@import url('../../assets/css/common.less');
 	.sheet-page{
 		padding: 0 20Px;
 		box-sizing: border-box;
@@ -137,16 +138,14 @@ export default {
 			display: flex;
 			padding: 10px 0 20px 0;
 			.item-tag{
+				.flexbox(flex-start, center);
 				color: #909090;
-				display: flex;
-				align-items: center;
 				cursor: pointer;
 				span{
 					padding: 0 15px;
 				}
 				i{
-					height: 10px;
-					width: 1px;
+					.wh(1px, 10px);
 					background-color: #dedede;
 				}
 			}
@@ -158,8 +157,7 @@ export default {
 		}
 		
 		.sheet-list{
-			display: flex;
-			flex-wrap: wrap;
+			.flexbox(flex-start, stretch, row, wrap);
 			.itemSheet{
 				margin: 5px 7px 15px 10px;
 			}
