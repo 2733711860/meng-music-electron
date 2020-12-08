@@ -10,7 +10,7 @@
 		
 		<!-- <music-lyric></music-lyric> -->
 		<!--播放器-->
-		<audio ref="ddPlayer"></audio>
+		<music-audio></music-audio>
   </div>
 </template>
 
@@ -19,15 +19,13 @@ import musicLeft from '@/components/music-left/index.vue';
 import musicHeader from '@/components/music-header.vue';
 import musicFooter from '@/components/music-footer.vue';
 import musicLyric from '@/components/music-lyric/music-lyric.vue';
-import { music } from '@/mixin/music.js';
+import musicAudio from '@/components/music-audio.vue';
 export default {
 	name: 'meng-music',
 	
-	mixins: [music],
-	
 	components: {
-		musicLeft, musicHeader, musicFooter, musicLyric
-	}
+		musicLeft, musicHeader, musicFooter, musicLyric, musicAudio
+	},
 }
 </script>
 

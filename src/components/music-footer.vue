@@ -1,19 +1,25 @@
 <template>
 	<div class="footer">
-		<el-slider v-model="progress" :show-tooltip="false" class="music-progress"></el-slider>
+		<el-slider 
+			v-model="progress" 
+			:max="max" 
+			:show-tooltip="false" 
+			class="music-progress" 
+			@change="changeTime"
+			:disabled="!currentMusic.id"></el-slider>
 		<div class="footer-tool">
 			<div class="music-msg">
 				<img src="../assets/image/11.jpg" class="music-cover" />
 				<div class="music-detail">
-					<div class="title">作者 - 音乐名称音乐名称音乐名称音乐名称音乐名称音乐名称</div>
-					<div class="time">00:08/03:46</div>
+					<div class="title">{{currentMusic.singer}} - {{currentMusic.name}}</div>
+					<div class="time">{{ currentTime | format }}/{{ currentMusic.duration % 3600 | format }}</div>
 				</div>
 			</div>
 			
 			<div class="music-tool">
-				<i class="iconfont icon-backwardfill" title="上一首"></i>
-				<i class="iconfont icon-zanting playPause" title="播放/暂停"></i>
-				<i class="iconfont icon-play_forward_fill" title="下一首"></i>
+				<i class="iconfont icon-backwardfill" title="上一首" @click="preMusic"></i>
+				<i class="iconfont playPause" :class="[playing ? 'icon-bofang' : 'icon-zanting']" title="播放/暂停" @click="goPlay"></i>
+				<i class="iconfont icon-play_forward_fill" title="下一首" @click="nextMusic"></i>
 			</div>
 			
 			<div class="music-tool-right">
@@ -28,11 +34,42 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations, mapActions } from 'vuex';
+import { format } from '@/utils';
+import { music } from '@/mixin/music.js';
 export default {
+	mixins: [music],
+	
+	filters: {
+		format
+	},
+	
 	data () {
 		return {
-			progress: 20,
-			volume: 40
+			progress: 0,
+			volume: 20,
+			max: 100
+		}
+	},
+	
+	computed: {
+		...mapGetters([ 'playing', 'currentMusic', 'currentTime', 'audioEle' ])
+	},
+	
+	watch: {
+		currentMusic() {
+			this.progress = 0;
+			this.max = this.currentMusic.duration * 100;
+		},
+		
+		currentTime() {
+			this.progress = Math.round(this.currentTime * 100);
+		}
+	},
+	
+	methods: {
+		changeTime(val) { // 更改播放时间
+			this.audioEle.currentTime = val / 100;
 		}
 	}
 }

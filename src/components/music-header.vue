@@ -8,6 +8,7 @@
 		</el-input>
 		
 		<div class="right">
+			<Icon icon="icon-iconset0343" isHover title="刷新" class="marrig" @click="refresh"></Icon>
 			<Icon icon="icon-iconset0419" isHover title="返回" class="marrig" @click="goBack"></Icon>
 			<Icon icon="icon-clothes" isHover title="换肤" class="marrig"></Icon>
 			<Icon icon="icon-iconset0177" isHover title="设置"></Icon>
@@ -31,6 +32,10 @@ export default {
 	methods: {
 		goBack() {
 			history.go(-1);
+		},
+		
+		refresh() {
+			location.reload();
 		}
 	}
 }

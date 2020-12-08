@@ -60,45 +60,31 @@ export default {
 				.wh(100%, 100%);
 			}
 			.icon-iconset0481{
-				color: #fff;
-				font-size: 20PX;
-				position: absolute;
-				bottom: 10px;
-				right: 10px;
+				.fontStyle(20px, #fff);
+				.css-position(absolute, auto, 10px, 10px, auto);
 				opacity: 0;
 				-webkit-transition: opacity .5s;
 				-moz-transition: opacity .5s;
 			}
 			.msg{
-				width: 100%;
-				height: 30px;
+				.wh(100%, 30px);
+				.css-position(absolute, 0, 0, auto, auto);
+				.fontStyle(10px, #fff);
 				background-image: linear-gradient(rgba(0, 0, 0, .6), rgba(0, 0, 0, 0));
-				color: #fff;
-				position: absolute;
-				top: 0;
-				right: 0;
-				font-size: 10PX;
 				border-top-left-radius: 5px;
 				border-top-right-radius: 5px;
 				text-align: right;
 				box-sizing: border-box;
 				padding: 5px 10px 0 0;
 				.icon-iconset0269{
-					font-size: 10PX;
+					font-size: 10px;
 				}
 			}
 			.detail{
-				position: absolute;
+				.css-position(absolute, 0, 0, auto, auto);
+				.fontStyle(10px, #fff);
+				.textoverflow(2);
 				width: 100%;
-				top: 0;
-				right: 0;
-				display: -webkit-box;
-				overflow: hidden;
-				text-overflow: ellipsis;
-				-webkit-line-clamp: 2;
-				-webkit-box-orient: vertical;
-				color: #fff;
-				font-size: 10px;
 				padding: 5px 5px 2px 5px;
 				box-sizing: border-box;
 				background-image: linear-gradient(rgba(0, 0, 0, .6), rgba(0, 0, 0, .1));
@@ -110,13 +96,9 @@ export default {
 			}
 		}
 		.text{
+			.textoverflow(2);
 			padding: 8px 5px 0 5px;
 			text-align: center;
-			display: -webkit-box;
-			overflow: hidden;
-			text-overflow: ellipsis;
-			-webkit-line-clamp: 2;
-			-webkit-box-orient: vertical;
 			width: 125px;
 		}
 	}

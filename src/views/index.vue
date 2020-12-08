@@ -15,10 +15,9 @@ export default {
 </script>
 
 <style scoped="scoped" lang="less">
+	@import url('../assets/css/common.less');
 	.index-page{
-		display: flex;
-		flex-direction: column;
-		align-items: center;
+		.flexbox(flex-start, center, column);
 		.index-content{
 			width: 800px;
 		}

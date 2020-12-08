@@ -1,5 +1,6 @@
 'use strict'
 
+import path from 'path';
 import { app, protocol, BrowserWindow } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 // import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
@@ -59,6 +60,11 @@ app.on('activate', () => {
 // Some APIs can only be used after this event occurs.
 app.on('ready', async () => {
   if (isDevelopment && !process.env.IS_TEST) {
+		let extensions = BrowserWindow.getDevToolsExtensions()
+		if ( !extensions[ 'Vue.js devtools' ] ) {
+		  BrowserWindow.addDevToolsExtension(path.resolve(__dirname, './../src/vue-devtools'))
+		}
+		
     // Install Vue Devtools
     // Devtools extensions are broken in Electron  6/7/<8.25 on Windows
     // See https://github.com/nklayman/vue-cli-plugin-electron-builder/issues/378 for more info

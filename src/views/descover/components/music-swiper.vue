@@ -48,6 +48,7 @@ export default {
 </script>
 
 <style scoped="scoped" lang="less">
+	@import url('../../../assets/css/common.less');
 	a {
 		text-decoration: none;
 	}
@@ -58,8 +59,7 @@ export default {
 	}
 
 	.ry-swiper .swiper-slide {
-		width: 350px;
-		height: 170px;
+		.wh(350px, 170px);
 		opacity: .7;
 		transform: scale(0.7);
 		-webkit-transform: scale(0.7);
@@ -93,8 +93,7 @@ export default {
 	.ry-item dl,
 	.ry-item dt,
 	.ry-item img{
-		height: 100%;
-		width: 100%;
+		.wh(100%, 100%);
 		border-radius: 5PX;
 	}
 </style>
