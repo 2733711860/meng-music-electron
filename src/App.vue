@@ -8,7 +8,10 @@
 			<music-footer></music-footer>
 		</div>
 		
-		<!-- <music-lyric></music-lyric> -->
+		<!-- 播放列表，历史记录 -->
+		<music-play></music-play>
+		
+		<music-lyric></music-lyric>
 		<!--播放器-->
 		<music-audio></music-audio>
   </div>
@@ -20,12 +23,13 @@ import musicHeader from '@/components/music-header.vue';
 import musicFooter from '@/components/music-footer.vue';
 import musicLyric from '@/components/music-lyric/music-lyric.vue';
 import musicAudio from '@/components/music-audio.vue';
+import musicPlay from '@/components/music-play';
 import { mapGetters, mapMutations, mapActions } from 'vuex';
 export default {
 	name: 'meng-music',
 	
 	components: {
-		musicLeft, musicHeader, musicFooter, musicLyric, musicAudio
+		musicLeft, musicHeader, musicFooter, musicLyric, musicAudio, musicPlay
 	},
 	
 	computed: {

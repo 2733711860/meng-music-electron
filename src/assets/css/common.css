@@ -37,3 +37,7 @@
 	justify-content: space-between;
 	align-items: center;
 }
+.disable{
+	pointer-events: none; /*阻止用户的点击动作产生任何效果*/
+	opacity: 0.6;
+}

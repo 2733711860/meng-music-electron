@@ -48,6 +48,9 @@ export const getSingerMv = params => get(`${baseUrl}/artist/mv`, params) // 获�
 
 export const getSingerAlbum = params => get(`${baseUrl}/artist/album`, params) // 获取歌手专辑
 
+export const getLyric = params => get(`${baseUrl}/lyric`, params) // 获取歌词
+
+
 
 
 

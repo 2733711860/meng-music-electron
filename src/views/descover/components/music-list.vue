@@ -12,7 +12,7 @@
 		<div class="swiper-container" id="musicList" ref="mySwiper">
 		  <div class="swiper-wrapper">
 		    <div class="swiper-slide" v-for="(item, index) in newMusics" :key="index + '1'">
-					<div class="item-music flex-center" v-for="(one, i) in item" :key="i + '2'">
+					<div class="item-music flex-center" v-for="(one, i) in item" :key="i + '2'" @dblclick="playThis(one, newMusics)">
 						<div class="item-index ellipsis">{{one.num+1 < 10 ? ('0' + (one.num+ 1)) : one.num+1}}</div>
 						<div class="img ellipsis">
 							<img :src="`${one.image}?param=40y40`" />
@@ -39,10 +39,8 @@ import Icon from '@/components/music-left/Icon.vue';
 import Swiper from 'swiper';
 import { getNewSongs } from '@/api/index.js';
 import { createPlayList, format } from '@/utils';
-import { music } from '@/mixin/music.js';
+import { mapGetters, mapMutations, mapActions } from 'vuex';
 export default {
-	mixins: [music],
-	
 	components: {
 		Icon
 	},
@@ -113,7 +111,21 @@ export default {
 				result.push(arr.slice(i, i+5));
 			}
 			return result;
-		}
+		},
+		
+		playThis(music, newMusics) { // 播放音乐
+			let list = [].concat(...newMusics);
+			let index = list.findIndex(item => item.id == music.id);
+			this.selectPlay({
+			  list,
+			  index,
+				music
+			});
+		},
+		
+		...mapActions([
+		  "selectPlay"
+		])
 	}
 }
 </script>

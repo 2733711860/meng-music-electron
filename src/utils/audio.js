@@ -12,7 +12,7 @@ const ddPlayerMusic = {
           buffered =
             ele.buffered.end(0) > duration ? duration : ele.buffered.end(0)
           let currentProgress = buffered / duration
-					console.log('缓冲进度：', currentProgress)
+					// console.log('缓冲进度：', currentProgress)
           // that.setCurrentProgress(currentProgress)
         }
       } catch (e) {}

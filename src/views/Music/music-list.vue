@@ -13,7 +13,7 @@
 			<span class="time colorDan">时间</span>
 		</div>
 		
-		<div class="one-line borbott" v-for="(item, index) in songList" :key="index + 'song'">
+		<div class="one-line borbott" v-for="(item, index) in songList" :key="index + 'song'" @dblclick="playThis(item, index)">
 			<i class="iconfont icon-like"></i>
 			<span class="title ellipsis" @click="playThis(item, index)">{{item.name}}</span>
 			<span class="btn visiHideDiv">
