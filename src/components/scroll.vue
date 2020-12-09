@@ -61,7 +61,7 @@ export default {
 				click: this.click,
 				eventPassthrough: this.direction === DIRECTION_V ? DIRECTION_H : DIRECTION_V,
 				scrollbar: {
-					fade: false,
+					fade: true,
 					interactive: false // 1.8.0 新增
 				},
 				mouseWheel: true,

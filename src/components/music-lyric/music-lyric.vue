@@ -10,7 +10,7 @@
 				<div class="song-msg">
 					<div class="title">{{currentMusic.name}}</div>
 					<div class="msg">
-						<span>{{currentMusic.singer}}</span>
+						<span class="singer">{{currentMusic.singer}}</span>
 						<span>{{currentMusic.album}}</span>
 					</div>
 				</div>
@@ -91,7 +91,9 @@ export default {
 				display: flex;
 				flex-direction: column;
 				.top{
-					padding: 20px;
+					padding: 0 30px;
+					height: 50px;
+					line-height: 50px;
 					text-align: right;
 					.icon-zuixiaohua{
 						color: #fff;
@@ -99,16 +101,24 @@ export default {
 					}
 				}
 				.song-msg{
+					height: 70px;
 					.title{
 						color: #fff;
-						font-size: 15px;
+						font-size: 20px;
+						line-height: 40px;
+						text-align: center;
 					}
 					.msg{
-						
+						color: #aaaaaa;
+						text-align: center;
+						.singer{
+							line-height: 30px;
+						}
 					}
 				}
 				.lyric{
-					// flex: 1;
+					flex: 1;
+					margin: 30px 0;
 				}
 			}
 		}
@@ -142,7 +152,7 @@ export default {
 		left: 0;
 		right: 0;
 		z-index: -2;
-		opacity: .2;
+		opacity: .6;
 		filter: none;
 		background-color: rgba(46, 48, 48, 1);
 	}

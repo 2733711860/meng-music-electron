@@ -1,6 +1,6 @@
 <template>
 	<scroll class="lyric-wrapper" ref="lyricList" :data="currentLyric && currentLyric.lines">
-		<div class="lyric">
+		<div class="lyric" :style="lyricTop">
 			<p v-for="(line, index) in currentLyric.lines" ref="lyricLine"
 				class="text"
 				:class="{'current':currentLineNum===index}"
@@ -20,55 +20,64 @@ export default {
 	
 	data() {
 		return {
-			currentLyric: [],
-			currentLineNum: -1
+			currentLineNum: -1,
+			screenHeight: document.documentElement.clientHeight,//屏幕高度
+			num: 5
 		}
 	},
 	
 	computed: {
 	  ...mapGetters([ 
 			'lyricObj', // 歌词
-			'playing'
+			'playing',
+			'currentTime'
 		]),
+		
+		lyricTop () {
+		  return `transform :translate3d(0, ${-40 *
+		    (this.currentLineNum - this.num)}px, 0)`
+		},
+		
+		currentLyric() {
+			if (this.lyricObj) {
+				return new LyricParser(this.lyricObj)
+			} else {
+				return {}
+			}
+		}
 	},
 	
 	watch: {
-		lyricObj() {
-			this.getLyric();
+		currentTime(newTime) { // 监听当前播放时间
+		  if (!this.lyricObj) {
+		    return
+		  }
+		  let lyricIndexx = 0
+		  for (let i = 0; i < this.currentLyric.lines.length; i++) {
+		    if (newTime > this.currentLyric.lines[i].time / 1000) {
+		      lyricIndexx = i
+		    }
+		  }
+			this.currentLineNum = lyricIndexx;
 		},
 		
-		// playing(newValue) {
-		// 	if (this.currentLyric) {
-		// 		if (newValue) {
-		// 			this.currentLyric.play();
-		// 		} else {
-		// 			this.currentLyric.stop();
-		// 		}
-		// 	}
-		// }
+		screenHeight() { //监听屏幕高度变化
+			this.getMiddleValue();
+		},
+	},
+	
+	mounted() {
+		this.getMiddleValue();
+		window.onresize = () => { // 定义窗口大小变更通知事件
+			this.screenHeight = document.documentElement.clientHeight; //窗口高度
+		};
 	},
 	
 	methods: {
-		getLyric() {
-			this.currentLyric = new LyricParser(this.lyricObj, this.handleLyric);
-			console.log(this.currentLyric)
-			if (this.playing) {
-				this.currentLyric.play();
-			}
-		},
-		
-		handleLyric({lineNum, txt}) {
-			console.log(lineNum, txt)
-			this.currentLineNum = lineNum;
-			// 若当前行大于5,开始滚动,以保歌词显示于中间位置
-			if (lineNum > 2) {
-				let lineEl = this.$refs.lyricLine[lineNum - 5];
-				console.log(lineEl)
-				// 结合better-scroll，滚动歌词
-				this.$refs.lyricList.scrollToElement(lineEl, 1000);
-			} else {
-				this.$refs.lyricList.scrollToElement(0, 0, 1000);
-			}
+		getMiddleValue() {
+			var faBoxHeight = document.querySelector('.lyric-wrapper').offsetHeight;
+			let num = Math.round(faBoxHeight/40);
+			this.num = Math.floor(num / 2);
 		}
 	}
 }
@@ -82,6 +91,7 @@ export default {
 		.lyric{
 			cursor: pointer;
 			user-select: none;
+			transition: all .5s;
 			.current{
 				color: #fff !important;
 				font-size: 17px !important;
@@ -90,7 +100,7 @@ export default {
 				height: 40px;
 				line-height: 40px;
 				text-align: center;
-				color: #cacaca;
+				color: #aaaaaa;
 				font-size: 15px;
 			}
 		}

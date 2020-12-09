@@ -67,7 +67,7 @@ export default{
 				id: musicId
 			}).then(res => {
 				if (res.nolyric) { // 没有歌词
-					// this.setNolyric(true)
+					this.set_lyricObj('');
 				} else {
 					this.set_lyricObj(res.lrc.lyric);
 					// this.setNolyric(false)
