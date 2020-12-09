@@ -22,3 +22,11 @@ export const mode = state => state.mode
 // 播放历史列表
 export const historyList = state => state.historyList
 
+// 是否显示播放列表及历史记录框
+export const showHisAndPlay = state => state.showHisAndPlay
+
+// 歌词
+export const lyricObj = state => state.lyricObj
+
+// 是否显示歌词页
+export const showLyric = state => state.showLyric

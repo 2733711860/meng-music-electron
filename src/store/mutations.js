@@ -35,6 +35,21 @@ const mutations = {
   [types.SET_HISTORYLIST](state, historyList) {
     state.historyList = historyList
   },
+	
+	// 是否显示播放列表及历史记录框
+	[types.SET_SHOWHISANDPLAY](state) {
+	  state.showHisAndPlay = !state.showHisAndPlay
+	},
+	
+	// 歌词
+	[types.SET_LYRICOBJ](state, lyricObj) {
+	  state.lyricObj = lyricObj
+	},
+	
+	// 是否显示歌词页
+	[types.SET_SHOWLYRIC](state, showLyric) {
+	  state.showLyric = showLyric
+	},
 }
 
 export default mutations

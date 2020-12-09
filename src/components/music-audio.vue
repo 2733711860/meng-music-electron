@@ -8,6 +8,7 @@
 import { mapGetters, mapMutations, mapActions } from 'vuex';
 import audioMusic from '@/utils/audio.js';
 import { music } from '@/mixin/music.js';
+import { getLyric } from '@/api';
 export default{
 	mixins: [music],
 	
@@ -44,6 +45,7 @@ export default{
 		  } else {
 		   	this.audioEle.src = newMusic.url;
 				this.audioEle.play();
+				this._getLyric(newMusic.id);
 		  }
 		},
 		
@@ -60,11 +62,28 @@ export default{
 	},
 	
 	methods: {
+		_getLyric(musicId) { // 获取歌词
+			getLyric({
+				id: musicId
+			}).then(res => {
+				if (res.nolyric) { // 没有歌词
+					// this.setNolyric(true)
+				} else {
+					this.set_lyricObj(res.lrc.lyric);
+					// this.setNolyric(false)
+				  // let lyricc = await parseLyric(res.lrc.lyric)
+				  // this.setLyric(lyricc)
+				}
+				// silencePromise(this.audioEle.play())
+			})
+		},
+		
 		...mapMutations({
 		  setAudioele: 'SET_AUDIOELE',
 			setCurrentTime: 'SET_CURRENTTIME',
 			setPlaying: 'SET_PLAYING',
-			setCurrentMusic: 'SET_CURRENTMUSIC'
+			setCurrentMusic: 'SET_CURRENTMUSIC',
+			set_lyricObj: 'SET_LYRICOBJ'
 		}),
 		
 		...mapActions([
