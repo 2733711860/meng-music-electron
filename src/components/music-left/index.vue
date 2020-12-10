@@ -4,17 +4,13 @@
 		
 		<div class="left-cont">
 			<div class="title">推荐</div>
-			<Button text="发现音乐" icon="icon-icon-"></Button>
-			<Button text="精品歌单" icon="icon-icon-1"></Button>
-			<!-- <Button text="私人FM" icon="icon-wefill"></Button> -->
-			<Button text="视频" icon="icon-iconset0225"></Button>
+			<Button text="发现音乐" icon="icon-icon-" :isActive="active == '1'" @click="changeMenu('1')"></Button>
+			<Button text="视频" icon="icon-iconset0225" :isActive="active == '2'" @click="changeMenu('2')"></Button>
 			
 			<div class="title martop">我的音乐</div>
-			<Button text="默认列表" icon="icon-iconset0164"></Button>
-			<Button text="下载管理" icon="icon-wefill"></Button>
-			<Button text="我的收藏" icon="icon-likefill"></Button>
-			<!-- <Button text="我的歌单" icon="icon-icon-1"></Button> -->
-			<!-- <Button text="播放历史" icon="icon-iconset0113"></Button> -->
+			<Button text="默认列表" icon="icon-iconset0164" :isActive="active == '3'" @click="changeMenu('3')"></Button>
+			<Button text="下载管理" icon="icon-wefill" :isActive="active == '4'" @click="changeMenu('4')"></Button>
+			<Button text="我的收藏" icon="icon-likefill" :isActive="active == '5'" @click="changeMenu('5')"></Button>
 		</div>
 	</div>
 </template>
@@ -25,6 +21,25 @@ import Top from './Top.vue';
 export default {
 	components: {
 		Top, Button
+	},
+	
+	data() {
+		return {
+			active: '1',
+		}
+	},
+	
+	methods: {
+		changeMenu(val) {
+			this.active = val;
+			if (this.active == '1') {
+				if (this.$route.path != '/descover/index') {
+					this.$router.push({
+						path: '/descover/index'
+					})
+				}
+			}
+		}
 	}
 }
 </script>

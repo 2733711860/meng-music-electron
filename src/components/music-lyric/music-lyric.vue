@@ -3,9 +3,10 @@
 		<div class="content">
 			<left-play></left-play>
 			
-			<div class="right">
+			<div class="right" @dblclick="getFullSreen">
 				<div class="top">
 					<i class="iconfont icon-zuixiaohua" title="收起歌曲详情页" @click="closeLyric"></i>
+					<i class="iconfont icon-iconset0127" title="关闭" @click="closeWin"></i>
 				</div>
 				<div class="song-msg">
 					<div class="title">{{currentMusic.name}}</div>
@@ -30,6 +31,7 @@ import lyricComponent from './lyric-component.vue';
 import leftPlay from './left-play.vue';
 import { mapGetters, mapMutations, mapActions } from 'vuex';
 import musicFooter from '../music-footer.vue';
+const {ipcRenderer: ipc} = require('electron');
 export default {
 	components: {
 		lyricComponent, musicFooter, leftPlay
@@ -40,7 +42,7 @@ export default {
 		
 		picUrl() {
 		  return this.currentMusic.id && this.currentMusic.image
-		  	? `url(${this.currentMusic.image}?param=300y300)`
+		  	? `url(${this.currentMusic.image}?param=100y100)`
 		  	: "url("+require('../../assets/image/11.jpg')+")"
 		},
 	},
@@ -56,6 +58,14 @@ export default {
 	methods: {
 		closeLyric() { // 关闭歌词页
 			this.setShowLyric(false);
+		},
+		
+		closeWin() { // 关闭app
+			ipc.send('close');
+		},
+		
+		getFullSreen() { // 全屏
+			ipc.send('in-fullScreen');
 		},
 		
 		...mapMutations({
@@ -91,13 +101,14 @@ export default {
 				display: flex;
 				flex-direction: column;
 				.top{
-					padding: 0 30px;
+					padding: 0 20px;
 					height: 50px;
 					line-height: 50px;
 					text-align: right;
-					.icon-zuixiaohua{
+					.iconfont{
 						color: #fff;
 						cursor: pointer;
+						margin-left: 10px;
 					}
 				}
 				.song-msg{

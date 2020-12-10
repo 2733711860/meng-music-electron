@@ -12,9 +12,13 @@ export const SET_PLAYING = 'SET_PLAYING' // 播放状态
 
 export const SET_HISTORYLIST = 'SET_HISTORYLIST' // 播放历史列表
 
-export const SET_SHOWHISANDPLAY = 'SET_SHOWHISANDPLAY' // 是否显示播放列表及历史记录框
+export const SET_SHOWHISANDPLAY = 'SET_SHOWHISANDPLAY' // 是否显示歌词页左边播放列表
+
+export const SET_SHOWLEFTLIST = 'SET_SHOWLEFTLIST' // 是否显示播放列表及历史记录框
 
 export const SET_LYRICOBJ = 'SET_LYRICOBJ' // 歌词
 
 export const SET_SHOWLYRIC = 'SET_SHOWLYRIC' // 是否显示歌词页
+
+export const SET_MODE = 'SET_MODE' // 模式
 

@@ -10,7 +10,10 @@
 			:disabled="!currentMusic.id"></el-slider>
 		<div class="footer-tool">
 			<div class="music-msg">
-				<img :src="currentMusic.id ? `${currentMusic.image}?param=50y50` : require('../assets/image/11.jpg')" class="music-cover" @click="openLyric" />
+				<div class="pic-div" @click="openLyric">
+					<i class="iconfont hovicon" :class="[showLyric ? 'icon-shuangjiantouxia' : 'icon-shuangjiantoushang']"></i>
+					<img :src="currentMusic.id ? `${currentMusic.image}?param=50y50` : require('../assets/image/11.jpg')" class="music-cover" />
+				</div>
 				<div class="music-detail" v-show="currentMusic.id">
 					<div class="title">{{currentMusic.singer}} - {{currentMusic.name}}</div>
 					<div class="time">{{ currentTime | format }}/{{ currentMusic.duration % 3600 | format }}</div>
@@ -26,7 +29,7 @@
 			<div class="music-tool-right">
 				<i class="iconfont icon-iconset0261" :class="[currentMusic.id ? '' : 'disable']" title="音量"></i>
 				<el-slider v-model="volume" :show-tooltip="false" class="music-volume" :class="[currentMusic.id ? '' : 'disable']"></el-slider>
-				<i class="iconfont icon-xunhuanbofang" :class="[currentMusic.id ? '' : 'disable']" title="循环模式"></i>
+				<i class="iconfont" :class="[currentMusic.id ? '' : 'disable', mode]" :title="modeObj[mode]" @click="changeMode"></i>
 				<i class="iconfont icon-geciweidianji" :class="[currentMusic.id ? '' : 'disable']" title="歌词"></i>
 				<i class="iconfont icon-qita" title="播放列表" @click="showList"></i>
 			</div>
@@ -49,12 +52,17 @@ export default {
 		return {
 			progress: 0,
 			volume: 20,
-			max: 100
+			max: 100,
+			modeObj: {
+				'icon-xunhuanbofang': '列表循环',
+				'icon-danquxunhuan': '单曲循环',
+				'icon-suijibofang': '随机播放'
+			},
 		}
 	},
 	
 	computed: {
-		...mapGetters([ 'playing', 'currentMusic', 'currentTime', 'audioEle', 'showLyric' ])
+		...mapGetters([ 'playing', 'currentMusic', 'currentTime', 'audioEle', 'showLyric', 'mode' ])
 	},
 	
 	watch: {
@@ -77,8 +85,19 @@ export default {
 			this.setShowLyric(!this.showLyric);
 		},
 		
+		changeMode() { // 更换播放模式
+		  let mode = this.mode == 'icon-xunhuanbofang' ? 'icon-danquxunhuan' : (this.mode == 'icon-danquxunhuan' ? 'icon-suijibofang' : 'icon-xunhuanbofang');
+			this.setMode(mode);
+			this.$message({
+				message: this.modeObj[mode],
+				type: 'success',
+				center: true
+			});
+		},
+		
 		...mapMutations({
-			setShowLyric: "SET_SHOWLYRIC"
+			setShowLyric: "SET_SHOWLYRIC",
+			setMode: 'SET_MODE'
 		}),
 	}
 }
@@ -108,11 +127,28 @@ export default {
 				align-items: center;
 				width: 250px;
 				color: #fff;
-				.music-cover{
-					width: 50px;
-					height: 50px;
-					border-radius: 5px;
-					cursor: pointer;
+				.pic-div{
+					position: relative;
+					.hovicon{
+						position: absolute;
+						top: 50%;
+						left: 50%;
+						transform: translate(-50%, -50%);
+						color: #e8e8e8;
+						font-size: 30px;
+						display: none;
+					}
+					.music-cover{
+						width: 50px;
+						height: 50px;
+						border-radius: 5px;
+						cursor: pointer;
+					}
+				}
+				.pic-div:hover{
+					.hovicon{
+						display: block;
+					}
 				}
 				.music-detail{
 					margin-left: 10px;
@@ -186,7 +222,7 @@ export default {
 		.el-slider__button-wrapper{
 			width: 16px;
 			height: 16px;
-			top: -9.1px;
+			top: -8.9px;
 			.el-slider__button{
 				width: 6px;
 				height: 6px;

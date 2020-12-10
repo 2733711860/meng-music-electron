@@ -20,11 +20,6 @@ export const setPlaying= function({ commit }, playing) {
   commit(types.SET_PLAYING, playing)
 }
 
-// 播放模式
-export const setMode = function({ commit }, mode) {
-  commit(types.SET_MODE, mode)
-}
-
 // 播放历史列表
 export const setHistorylist = function({ commit }, historylist) {
   commit(types.SET_HISTORYLIST, historylist)

@@ -7,7 +7,7 @@ export const music = {
 	},
 	
 	computed: {
-	  ...mapGetters([ 'audioEle', 'currentMusic', 'playlist', 'mode', 'currentIndex', 'playing' ]),
+	  ...mapGetters([ 'audioEle', 'currentMusic', 'playlist', 'mode', 'currentIndex', 'playing', 'showLyric', 'showLeftList' ]),
 	},
 	
 	methods: {
@@ -15,18 +15,18 @@ export const music = {
 			if (this.currentMusic.id == undefined) {
 				return
 			}
-			if (this.mode == 'loop') { // 单曲循环
+			if (this.mode == 'icon-danquxunhuan') { // 单曲循环
 				this.audioEle.currentTime = 0;
 				this.audioEle.play();
 				this.setPlaying(true);
 			} else { // 顺序播放
 				let index = ''
-				if (this.mode === 'listLoop') { // 列表循环
+				if (this.mode === 'icon-xunhuanbofang') { // 列表循环
 					index = this.currentIndex + 1
 				  if (index === this.playlist.length) { // 已经是最后一首
 				    index = 0
 				  }
-				} else if (this.mode === 'random') { // 随机播放
+				} else if (this.mode === 'icon-suijibofang') { // 随机播放
 					index = Math.floor(Math.random() * (this.playlist.length))
 				}
 				if (!this.playing) { // 暂停状态
@@ -64,14 +64,19 @@ export const music = {
 		},
 		
 		showList() { // 播放列表、历史记录
-			this.setShowHisAndPlay();
+			if (this.showLyric) {
+				this.setShowLeftList(!this.showLeftList);
+			} else {
+				this.setShowHisAndPlay();
+			}
 		},
 		
 		...mapMutations({
 		  setAudioele: 'SET_AUDIOELE',
 			setPlaying: "SET_PLAYING",
 			setCurrentIndex: "SET_CURRENTINDEX",
-			setShowHisAndPlay: "SET_SHOWHISANDPLAY"
+			setShowHisAndPlay: "SET_SHOWHISANDPLAY",
+			setShowLeftList: "SET_SHOWLEFTLIST"
 		}),
 	}
 }

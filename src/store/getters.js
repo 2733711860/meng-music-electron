@@ -25,6 +25,9 @@ export const historyList = state => state.historyList
 // 是否显示播放列表及历史记录框
 export const showHisAndPlay = state => state.showHisAndPlay
 
+// 是否显示歌词页左边播放列表
+export const showLeftList = state => state.showLeftList
+
 // 歌词
 export const lyricObj = state => state.lyricObj
 

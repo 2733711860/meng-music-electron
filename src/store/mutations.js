@@ -41,6 +41,11 @@ const mutations = {
 	  state.showHisAndPlay = !state.showHisAndPlay
 	},
 	
+	// 是否显示歌词页左边播放列表
+	[types.SET_SHOWLEFTLIST](state) {
+	  state.showLeftList = !state.showLeftList
+	},
+	
 	// 歌词
 	[types.SET_LYRICOBJ](state, lyricObj) {
 	  state.lyricObj = lyricObj
@@ -49,6 +54,11 @@ const mutations = {
 	// 是否显示歌词页
 	[types.SET_SHOWLYRIC](state, showLyric) {
 	  state.showLyric = showLyric
+	},
+	
+	// 模式
+	[types.SET_MODE](state, mode) {
+	  state.mode = mode
 	},
 }
 

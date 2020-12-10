@@ -1,5 +1,5 @@
 <template>
-	<div class="btn2" @click="ckickThis">
+	<div class="btn2" :class="[isActive ? 'active' : '']" @click="ckickThis">
 		<span class="btn-inner">
 			<i class="iconfont" :class="icon"></i>
 			<span>{{text}}</span>
@@ -18,6 +18,10 @@ export default {
 		icon: {
 			type: String,
 			default: ''
+		},
+		isActive: {
+			type: Boolean,
+			default: false
 		}
 	},
 	
@@ -47,16 +51,16 @@ export default {
 		width: 0;
 		top: -1px;
 		bottom: -1px;
-		transition: all 0.5s;
-		-moz-transition: all 0.5s;
-		-webkit-transition: all 0.5s;
+		transition: all 0.2s;
+		-moz-transition: all 0.2s;
+		-webkit-transition: all 0.2s;
 	}
 
-	.btn2:hover .btnbg-x {
+	.btn2:hover .btnbg-x, .active .btnbg-x {
 		width: 100%;
 		width: calc(100% + 2px);
 		background: rgba(255, 255, 255, .5);
-		border-left: 5px solid #333;
+		border-left: 5px solid #5965ED;
 		color: #333;
 	}
 
@@ -68,7 +72,7 @@ export default {
 		}
 	}
 	
-	.btn2:hover .btn-inner{
+	.btn2:hover .btn-inner, .active .btn-inner {
 		color: #333;
 	}
 </style>
