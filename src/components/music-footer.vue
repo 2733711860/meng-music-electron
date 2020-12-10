@@ -129,6 +129,7 @@ export default {
 				color: #fff;
 				.pic-div{
 					position: relative;
+					cursor: pointer;
 					.hovicon{
 						position: absolute;
 						top: 50%;
@@ -142,7 +143,6 @@ export default {
 						width: 50px;
 						height: 50px;
 						border-radius: 5px;
-						cursor: pointer;
 					}
 				}
 				.pic-div:hover{

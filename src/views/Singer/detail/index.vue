@@ -7,7 +7,11 @@
 			<el-tab-pane label="歌曲" name="second">
 				<music-list :songList="songList"></music-list>
 			</el-tab-pane>
-			<el-tab-pane label="MV" name="third">MV</el-tab-pane>
+			<el-tab-pane label="MV" name="third">
+				<div class="mv-list">
+					<music-mv class="item-mv" v-for="(item, index) in mvList" :key="index + 'mv'" :mvDetails="item"></music-mv>
+				</div>
+			</el-tab-pane>
 			<el-tab-pane label="相似歌手" name="fourth">
 				<simi-singer></simi-singer>
 			</el-tab-pane>
@@ -19,20 +23,21 @@
 import singerTop from './singer-top.vue';
 import musicList from '../../Music/music-list.vue';
 import simiSinger from './simi-singer.vue';
-import singerMv from './singer-mv.vue';
-import { getSingerDetail, getMusicDetail, getSimiSheet } from '@/api';
+import musicMv from '../../descover/components/music-mv.vue';
+import { getSingerDetail, getMusicDetail, getSimiSheet, getSingerSong, getSingerMv, getSingerAlbum } from '@/api';
 import { createSheetToSong } from '@/utils';
 export default {
 	components: {
-		singerTop, musicList, simiSinger, singerMv
+		singerTop, musicList, simiSinger, musicMv
 	},
 	
 	data() {
 		return {
 			activeName: 'second',
 			songList: [], // 歌曲列表
+			mvList: [], // mv列表
 			simiSingers: [], // 相似歌手
-			singerDetails: '', // 歌手详情
+			singerDetails: {}, // 歌手详情
 		};
 	},
 	
@@ -45,7 +50,9 @@ export default {
 	watch: {
 	  singerId: {
 	    handler() {
-	      this.getDetail(); // 获取歌手详情
+				this.getMusic(); // 获取歌手单曲
+				this.getMv(); // 获取歌手mv
+	      // this.getDetail(); // 获取歌手详情
 				this.getRelatedSinger(); // 相关歌手推荐
 	    },
 	    immediate: true
@@ -53,19 +60,51 @@ export default {
 	},
 	
 	methods: {
+		getMusic() { // 获取歌手单曲
+			getSingerSong({
+				id: this.singerId
+			}).then(res => {
+				console.log(res)
+				if (res.code == 200) {
+					this.singerDetails = res.artist;
+					this.songList = this._formatSongs(res.hotSongs);
+				}
+			})
+		},
+		
+		getMv() { // 获取歌手mv
+			getSingerMv({
+				id: this.singerId
+			}).then(res => {
+				if (res.code == 200) {
+					this.mvList = res.mvs;
+				}
+			})
+		},
+		
 		getDetail() {
 			getSingerDetail({
 				id: this.singerId
 			}).then(res => {
 				if (res.code == 200) {
-					console.log(res)
 				}
 			})
 		},
 		
 		getRelatedSinger() {
 			
-		}
+		},
+		
+		_formatSongs(list) { // 歌曲数据处理
+		  let ret = []
+		  list.forEach(item => {
+		    const musicData = item
+		    if (musicData.id) {
+		      ret.push(createSheetToSong(musicData))
+		    }
+		  })
+		  return ret
+		},
 	}
 }
 </script>
@@ -77,11 +116,11 @@ export default {
 			font-size: 20px;
 			font-weight: bold;
 		}
-		.sheet-list{
-			.flexbox(flex-start, stretch, row, wrap);
-			margin: 20px 0;
-			.sheet{
-				margin: 0 8px 15px 8px;
+		.mv-list{
+			display: flex;
+			flex-wrap: wrap;
+			.item-mv{
+				margin: 5px 9px 5px 9px;
 			}
 		}
 	}

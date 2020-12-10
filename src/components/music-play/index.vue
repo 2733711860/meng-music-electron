@@ -73,7 +73,10 @@ export default {
 			background-color: #e7e7e7;
 			padding: 7px 0;
 			div{
-				padding: 3px 20px;
+				height: 28px;
+				line-height: 28px;
+				width: 100px;
+				text-align: center;
 				border: 1px solid #e7e7e7;
 				border-radius: 5px;
 				background-color: #fff;

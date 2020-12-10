@@ -1,7 +1,7 @@
 <template>
 	<div class="music-sheet">
 		<div class="top">
-			<img :src="`${mvDetails.picUrl}?param=170y95`" />
+			<img :src="`${mvDetails.picUrl ? mvDetails.picUrl : mvDetails.imgurl}?param=170y95`" />
 			<span class="msg">
 				<i class="iconfont icon-iconset0269"></i>
 				<span>{{mvDetails.playCount | addChineseUnit}}</span>
@@ -52,7 +52,7 @@ export default {
 			}
 			.icon-iconset0481{
 				.fontStyle(20px, #fff);
-				.css-position(absolute, auto, 10px, 10px auto);
+				.css-position(absolute, auto, 10px, 10px, auto);
 				opacity: 0;
 				-webkit-transition: opacity .5s;
 				-moz-transition: opacity .5s;

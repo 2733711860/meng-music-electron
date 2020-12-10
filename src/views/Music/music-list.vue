@@ -13,9 +13,9 @@
 			<span class="time colorDan">时间</span>
 		</div>
 		
-		<div class="one-line borbott" v-for="(item, index) in songList" :key="index + 'song'" @dblclick="playThis(item, index)">
+		<div class="one-line" v-for="(item, index) in songList" :key="index + 'song'" @dblclick="playThis(item, index)">
 			<i class="iconfont icon-like"></i>
-			<span class="title ellipsis" @click="playThis(item, index)">{{item.name}}</span>
+			<span class="title ellipsis">{{item.name}}</span>
 			<span class="btn visiHideDiv">
 				<i class="iconfont icon-iconset0481" title="播放" @click="playThis(item, index)"></i>
 				<i class="iconfont icon-download" title="下载"></i>
@@ -95,8 +95,11 @@ export default {
 				justify-content: space-between;
 			}
 		}
+		.one-line:nth-of-type(even){
+			background: #fafafa;
+		}
 		.one-line:not(:first-child):hover{
-			background-color: #f5f5f5;
+			background-color: #f0f0f0;
 			.btn{
 				visibility: visible;
 			}

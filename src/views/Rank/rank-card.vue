@@ -85,10 +85,10 @@ export default{
 				}
 			}
 			.one-music:nth-of-type(even), .card-btn{
-				background: #f4f4f4;
+				background: #fafafa;
 			}
 			.one-music:hover{
-				background-color: #e7e7e7;
+				background-color: #f0f0f0;
 			}
 			.card-btn{
 				height: 40px;
