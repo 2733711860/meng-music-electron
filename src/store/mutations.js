@@ -60,6 +60,16 @@ const mutations = {
 	[types.SET_MODE](state, mode) {
 	  state.mode = mode
 	},
+	
+	// 是否静音
+	[types.SET_ISMUTE](state, isMute) {
+	  state.isMute = isMute
+	},
+	
+	// 音量
+	[types.SET_VOLUME](state, volume) {
+	  state.volume = volume
+	},
 }
 
 export default mutations

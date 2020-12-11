@@ -6,7 +6,7 @@
 			<div class="item-music" v-for="(item, index) in musicList" :key="index + 'ply'" @dblclick="playThis(item, index)">
 				<div class="left ellipsis">
 					<span class="name ellipsis">{{item.name}}</span>
-					<music-load class="load" v-if="item.id == currentMusic.id"></music-load>
+					<music-load class="load" v-if="currentMusic.id == item.id"></music-load>
 				</div>
 				<div class="right">{{item.duration | format}}</div>
 			</div>

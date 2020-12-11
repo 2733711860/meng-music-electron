@@ -22,7 +22,7 @@ export default{
 	mounted() {
 		this.$nextTick(() => {
 		  audioMusic.initAudio(this)
-			// this.audioEle.volume = this.isMute ? 0 : this.volume
+			this.audioEle.volume = this.isMute ? 0 : this.volume/100
 		})
 	},
 	
@@ -35,6 +35,7 @@ export default{
 			'playing', // 播放状态
 			'playlist', // 播放列表
 			'currentIndex', // 当前音乐索引
+			'volume', // 音量
 		]),
 	},
 	
@@ -59,6 +60,23 @@ export default{
 		currentIndex(newIndex, oldIndex) {
 			this.setCurrentMusic(this.playlist[newIndex])
 		},
+		
+		volume(newVolume) { // 音量
+			this.audioEle.volume = newVolume / 100;
+			if (newVolume == 0) {
+				this.setIsMute(true);
+			} else {
+				this.setIsMute(false);
+			}
+		},
+		
+		isMute() { // 静音
+			if (this.isMute) {
+				this.audioEle.volume = 0;
+			} else {
+				this.audioEle.volume = this.volume / 100;
+			}
+		}
 	},
 	
 	methods: {
@@ -83,7 +101,7 @@ export default{
 			setCurrentTime: 'SET_CURRENTTIME',
 			setPlaying: 'SET_PLAYING',
 			setCurrentMusic: 'SET_CURRENTMUSIC',
-			set_lyricObj: 'SET_LYRICOBJ'
+			set_lyricObj: 'SET_LYRICOBJ',
 		}),
 		
 		...mapActions([

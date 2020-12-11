@@ -11,6 +11,8 @@ const state = {
 	lyricObj: '', // 歌词
 	showLyric: false, // 是否显示歌词页
 	mode: 'icon-xunhuanbofang', // 播放模式。icon-xunhuanbofang：顺序播放；icon-danquxunhuan：单曲循环；icon-suijibofang：随机播放。
+	isMute: false, // 是否静音
+	volume: 20, // 音量
 }
 
 export default state

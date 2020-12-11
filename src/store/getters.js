@@ -33,3 +33,9 @@ export const lyricObj = state => state.lyricObj
 
 // 是否显示歌词页
 export const showLyric = state => state.showLyric
+
+// 是否静音
+export const isMute = state => state.isMute
+
+// 音量
+export const volume = state => state.volume

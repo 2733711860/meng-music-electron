@@ -4,7 +4,11 @@
 		
 		<div class="left-cont">
 			<div class="title">推荐</div>
-			<Button text="发现音乐" icon="icon-icon-" :isActive="active == '1'" @click="changeMenu('1')"></Button>
+			<Button text="个性推荐" icon="icon-icon-" :isActive="active == '/descover/index'" @click="changeMenu('/descover/index')"></Button>
+			<Button text="歌单" icon="icon-iconset0164" :isActive="active == '/descover/sheet'" @click="changeMenu('/descover/sheet')"></Button>
+			<Button text="榜单" icon="icon-iconset0132" :isActive="active == '/descover/rank'" @click="changeMenu('/descover/rank')"></Button>
+			<Button text="歌手" icon="icon-iconset0202" :isActive="active == '/descover/singer'" @click="changeMenu('/descover/singer')"></Button>
+			
 			<Button text="视频" icon="icon-iconset0225" :isActive="active == '2'" @click="changeMenu('2')"></Button>
 			
 			<div class="title martop">我的音乐</div>
@@ -23,21 +27,21 @@ export default {
 		Top, Button
 	},
 	
-	data() {
-		return {
-			active: '1',
+	computed: {
+		active: {
+			get() {
+				return this.$route.path
+			},
+			set() {}
 		}
 	},
 	
 	methods: {
-		changeMenu(val) {
-			this.active = val;
-			if (this.active == '1') {
-				if (this.$route.path != '/descover/index') {
-					this.$router.push({
-						path: '/descover/index'
-					})
-				}
+		changeMenu(path) {
+			if (this.active != path) {
+				this.$router.push({
+					path: path
+				})
 			}
 		}
 	}

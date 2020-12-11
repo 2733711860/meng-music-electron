@@ -22,3 +22,7 @@ export const SET_SHOWLYRIC = 'SET_SHOWLYRIC' // 是否显示歌词页
 
 export const SET_MODE = 'SET_MODE' // 模式
 
+export const SET_ISMUTE = 'SET_ISMUTE' // 是否静音
+
+export const SET_VOLUME = 'SET_VOLUME' // 音量
+

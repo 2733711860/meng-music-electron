@@ -20,11 +20,12 @@ async function createWindow() {
     frame: false, // 去掉最顶部的导航 以及 最大化 最小化 关闭按钮
     useContentSize: true,
     transparent: false,
+		show: true,
     webPreferences: {
       nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION
     }
   })
-
+	
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     await mainWindow.loadURL(process.env.WEBPACK_DEV_SERVER_URL)
     if (!process.env.IS_TEST) mainWindow.webContents.openDevTools()

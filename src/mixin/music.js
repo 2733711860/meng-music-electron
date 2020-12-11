@@ -7,7 +7,8 @@ export const music = {
 	},
 	
 	computed: {
-	  ...mapGetters([ 'audioEle', 'currentMusic', 'playlist', 'mode', 'currentIndex', 'playing', 'showLyric', 'showLeftList' ]),
+	  ...mapGetters([ 'audioEle', 'currentMusic', 'playlist', 'mode', 'currentIndex', 'playing', 'showLyric', 'showLeftList',
+		'volume', 'isMute']),
 	},
 	
 	methods: {
@@ -71,12 +72,18 @@ export const music = {
 			}
 		},
 		
+		changeMute() { // 静音
+			this.setIsMute(!this.isMute);
+		},
+		
 		...mapMutations({
 		  setAudioele: 'SET_AUDIOELE',
 			setPlaying: "SET_PLAYING",
 			setCurrentIndex: "SET_CURRENTINDEX",
 			setShowHisAndPlay: "SET_SHOWHISANDPLAY",
-			setShowLeftList: "SET_SHOWLEFTLIST"
+			setShowLeftList: "SET_SHOWLEFTLIST",
+			setVolume: "SET_VOLUME",
+			setIsMute: 'SET_ISMUTE'
 		}),
 	}
 }

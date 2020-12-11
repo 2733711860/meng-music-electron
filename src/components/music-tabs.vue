@@ -25,9 +25,11 @@ export default {
 	},
 	methods: {
 		handleClick(tab) {
-			this.$router.push({
-				path: `/${tab.name}`
-			})
+			if (this.activeName != tab.name) {
+				this.$router.push({
+					path: `/${tab.name}`
+				})
+			}
 		}
 	}
 };

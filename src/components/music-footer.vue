@@ -27,11 +27,15 @@
 			</div>
 			
 			<div class="music-tool-right">
-				<i class="iconfont icon-iconset0261" :class="[currentMusic.id ? '' : 'disable']" title="音量"></i>
-				<el-slider v-model="volume" :show-tooltip="false" class="music-volume" :class="[currentMusic.id ? '' : 'disable']"></el-slider>
+				<i class="iconfont" 
+					:class="[currentMusic.id ? '' : 'disable', volumeClass]" 
+					title="音量"
+					@click="changeMute"
+				></i>
+				<el-slider v-model="footVolume" :show-tooltip="false" class="music-volume" :class="[currentMusic.id ? '' : 'disable']" @input="changeVolume"></el-slider>
 				<i class="iconfont" :class="[currentMusic.id ? '' : 'disable', mode]" :title="modeObj[mode]" @click="changeMode"></i>
-				<i class="iconfont icon-geciweidianji" :class="[currentMusic.id ? '' : 'disable']" title="歌词"></i>
-				<i class="iconfont icon-qita" title="播放列表" @click="showList"></i>
+				<i class="iconfont icon-geciweidianji" title="歌词" @click="changeLyric"></i>
+				<i class="iconfont icon-icon-1" title="播放列表" @click="showList"></i>
 			</div>
 		</div>
 	</div>
@@ -41,6 +45,7 @@
 import { mapGetters, mapMutations, mapActions } from 'vuex';
 import { format } from '@/utils';
 import { music } from '@/mixin/music.js';
+const {ipcRenderer: ipc} = require('electron');
 export default {
 	mixins: [music],
 	
@@ -51,7 +56,7 @@ export default {
 	data () {
 		return {
 			progress: 0,
-			volume: 20,
+			footVolume: this.volume,
 			max: 100,
 			modeObj: {
 				'icon-xunhuanbofang': '列表循环',
@@ -62,7 +67,22 @@ export default {
 	},
 	
 	computed: {
-		...mapGetters([ 'playing', 'currentMusic', 'currentTime', 'audioEle', 'showLyric', 'mode' ])
+		...mapGetters([ 'playing', 'currentMusic', 'currentTime', 'audioEle', 'showLyric', 'mode', 'volume' ]),
+		
+		volumeClass() {
+			return this.isMute ? 
+				'icon-iconset0258' : 
+				(this.volume < 20 ? 
+					'icon-iconset0259' : 
+					(this.volume < 50 && this.volume >= 20 ? 
+						'icon-iconset0260' : 
+						(this.volume < 80 && this.volume >= 50 ? 
+							'icon-iconset0261' : 
+							'icon-iconset0262'
+						)
+					)
+				)
+		}
 	},
 	
 	watch: {
@@ -73,6 +93,14 @@ export default {
 		
 		currentTime() {
 			this.progress = Math.round(this.currentTime * 100);
+		},
+		
+		volume() {
+			this.footVolume = this.volume;
+		},
+		
+		isMute() {
+			this.footVolume = this.isMute ? 0 : this.volume;
 		}
 	},
 	
@@ -93,6 +121,16 @@ export default {
 				type: 'success',
 				center: true
 			});
+		},
+		
+		changeVolume() { // 音量改变
+			if (this.footVolume != 0) {
+				this.setVolume(this.footVolume);
+			}
+		},
+		
+		changeLyric() {
+			ipc.send('toggle-desktop-lyric', true);
 		},
 		
 		...mapMutations({

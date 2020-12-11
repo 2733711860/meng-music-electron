@@ -77,5 +77,15 @@ export default [
 		meta: {
 			title: '歌手详情'
 		}
+	},
+	{
+		path: '/desktop-lyric',
+		name: 'desktop-lyric',
+		component: resolve => {
+			require(['@/views/window/desktop-lyric'], resolve)
+		},
+		meta: {
+			title: '桌面歌词'
+		}
 	}
 ]

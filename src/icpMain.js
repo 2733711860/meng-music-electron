@@ -38,3 +38,21 @@ ipcMain.on('out-fullScreen',()=>{ // 全屏
 globalShortcut.register('ESC', () => { // 退出全屏
 	mainWindow.setFullScreen(false);
 })
+
+// ipcMain.on('toggle-desktop-lyric', (event, flag) => { // 打开关闭桌面歌词
+// 	console.log(global.lyricWindow)
+// 	if (flag) {
+// 		global.lyricWindow.showInactive()
+// 	} else {
+// 		global.lyricWindow.hide()
+// 	}
+// })
+
+// ipcMain.on('fix-desktop-lyric', (event, data) => { // 固定桌面歌词
+// 	global.lyricWindow.setIgnoreMouseEvents(data, {
+// 		forward: true
+// 	})
+// 	if (data === false) {
+// 		global.lyricWindow.webContents.send('show-lock')
+// 	}
+// })
