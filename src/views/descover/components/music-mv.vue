@@ -1,7 +1,7 @@
 <template>
 	<div class="music-sheet">
 		<div class="top">
-			<img :src="`${mvDetails.picUrl ? mvDetails.picUrl : mvDetails.imgurl}?param=170y95`" />
+			<img :src="`${mvDetails.picUrl ? mvDetails.picUrl : (mvDetails.imgurl ? mvDetails.imgurl : mvDetails.cover)}?param=170y95`" />
 			<span class="msg">
 				<i class="iconfont icon-iconset0269"></i>
 				<span>{{mvDetails.playCount | addChineseUnit}}</span>

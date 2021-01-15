@@ -59,7 +59,7 @@ export default {
 		right: 0;
 		overflow: hidden;
 		background-color: #fff;
-		z-index: 10;
+		z-index: 101;
 		box-shadow: 0 6px 18px #9d9d9d;
 		display: flex;
 		flex-direction: column;

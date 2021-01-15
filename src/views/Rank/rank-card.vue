@@ -4,7 +4,7 @@
 		<i class="iconfont icon-iconset0481" title="播放全部"></i>
 		<span class="texts">{{ rankDetail.updateTime | toDate('MM月DD日') }} 更新</span>
 		<div class="music-list">
-			<div class="one-music flex-center" v-for="(item, index) in rankDetail.tracks" :key="index + 'tracks'">
+			<div class="one-music flex-center" v-for="(item, index) in rankDetail.tracks" :key="index + 'tracks'" @dblclick="playThis(item, rankDetail.tracks)">
 				<span>{{`0${index + 1}`}}</span>
 				<span class="musicName ellipsis" :title="item.name">{{item.name}}</span>
 				<span class="singer ellipsis" :title="item.singer">{{item.singer}}</span>
@@ -16,6 +16,7 @@
 
 <script>
 import moment from 'moment';
+import { mapGetters, mapMutations, mapActions } from 'vuex';
 export default{
 	data () {
 		return{
@@ -47,7 +48,21 @@ export default{
 			this.$router.push({
 				path: `/playlist/${this.rankDetail.id}`
 			})
-		}
+		},
+		
+		playThis(music, newMusics) { // 播放音乐
+			let list = [].concat(...newMusics);
+			let index = list.findIndex(item => item.id == music.id);
+			this.selectPlay({
+			  list,
+			  index,
+				music
+			});
+		},
+		
+		...mapActions([
+		  "selectPlay"
+		])
 	}
 }
 </script>

@@ -26,3 +26,6 @@ export const SET_ISMUTE = 'SET_ISMUTE' // 是否静音
 
 export const SET_VOLUME = 'SET_VOLUME' // 音量
 
+export const SET_SEARCHOBJ = 'SET_SEARCHOBJ' // 搜索对象
+
+export const SET_THEMEOBJ = 'SET_THEMEOBJ' // 主题对象

@@ -146,7 +146,8 @@ export default {
 		width: 100%;
 		height: 70px;
 		position: relative;
-		background: rgba(0, 0, 0, .1) border-box;
+		background: hsla(0, 0%, 100%, .1) border-box;
+		// background: rgba(0, 0, 0, .1) border-box;
 		.music-progress{
 			position: absolute;
 			z-index: 100;

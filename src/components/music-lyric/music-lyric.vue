@@ -38,12 +38,13 @@ export default {
 	},
 	
 	computed: {
-	  ...mapGetters([ 'currentMusic', 'showLyric' ]),
+	  ...mapGetters([ 'currentMusic', 'showLyric', 'themeObj' ]),
 		
 		picUrl() {
+			let bgUrl = require(`../../assets/image/${this.themeObj.bgCoverIndex}.jpg`);
 		  return this.currentMusic.id && this.currentMusic.image
 		  	? `url(${this.currentMusic.image}?param=100y100)`
-		  	: "url("+require('../../assets/image/11.jpg')+")"
+		  	: "url("+bgUrl+")"
 		},
 	},
 	

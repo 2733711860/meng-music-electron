@@ -1,5 +1,5 @@
 <template>
-	<div class="music-left">
+	<div class="music-left" id="musicLft">
 		<Top></Top>
 		
 		<div class="left-cont">
@@ -22,18 +22,26 @@
 <script>
 import Button from './Button.vue';
 import Top from './Top.vue';
+import { mapGetters, mapMutations, mapActions } from 'vuex';
 export default {
 	components: {
 		Top, Button
 	},
 	
 	computed: {
+		...mapGetters([ 'themeObj' ]),
+		
 		active: {
 			get() {
 				return this.$route.path
 			},
 			set() {}
 		}
+	},
+	
+	mounted() {
+		let bgUrl = require(`../../assets/image/${this.themeObj.bgCoverIndex}.jpg`);
+		document.styleSheets[0].addRule('.music-left::before', `background-image: url(${bgUrl});`)
 	},
 	
 	methods: {
@@ -51,7 +59,8 @@ export default {
 <style scoped="scoped" lang="less">
 	.music-left{
 		position: relative;
-		background: hsla(0, 0%, 100%, .5) border-box;
+		color: #dadada;
+		background: hsla(0, 0%, 100%, .1) border-box;
 		overflow: hidden;
 		display: flex;
 		flex-direction: column;
@@ -79,9 +88,8 @@ export default {
 		left:0;
 		margin:-30px;
 		z-index:-1;
-		-webkit-filter:blur(25px);
-		filter:blur(25px);
-		background-image: url(../../assets/image/11.jpg);
+		-webkit-filter:blur(5px);
+		filter:blur(5px);
 		background-repeat: no-repeat;
 		background-size: cover;
 	}

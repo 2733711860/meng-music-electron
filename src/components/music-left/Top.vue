@@ -86,7 +86,7 @@ export default {
 			.icon-iconset01100{
 				font-size: 40PX;
 				margin-bottom: 10PX;
-				color: #8b8b8b;
+				color: #dadada;
 			}
 		}
 	}

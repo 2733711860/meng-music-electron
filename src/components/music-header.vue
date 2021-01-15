@@ -2,9 +2,11 @@
 	<div class="header">
 		<el-input
 			class="search"
-			placeholder="搜素音乐"
+			placeholder="大天蓬"
 			prefix-icon="el-icon-search"
-			v-model="searchKey">
+			clearable
+			v-model="searchKey"
+			@keyup.enter.native="focus">
 		</el-input>
 		
 		<div class="right">
@@ -17,10 +19,15 @@
 </template>
 
 <script>
-import Icon from './music-left/Icon.vue'
+import Icon from './music-left/Icon.vue';
+import { mapGetters, mapMutations, mapActions } from 'vuex';
 export default {
 	components: {
 		Icon
+	},
+	
+	computed: {
+	  ...mapGetters([ 'searchObj' ]),
 	},
 	
 	data () {
@@ -30,13 +37,31 @@ export default {
 	},
 	
 	methods: {
-		goBack() {
-			history.go(-1);
+		goBack() { // 返回上一页
+			if (this.searchObj.showSearch) { // 如果搜索框有显示
+				let searchObjCopy = JSON.parse(JSON.stringify(this.searchObj));
+				searchObjCopy.showSearch = false;
+				this.setSearchObj(searchObjCopy);
+			} else {
+				history.go(-1);
+			}
 		},
 		
-		refresh() {
+		refresh() { // 刷新
 			location.reload();
-		}
+		},
+		
+		focus() { // 搜索框enter键
+			let searchObjCopy = JSON.parse(JSON.stringify(this.searchObj));
+			searchObjCopy.showSearch = true;
+			searchObjCopy.searchKey = this.searchKey ? this.searchKey : '大天蓬';
+			searchObjCopy.isPreveEnter++;
+			this.setSearchObj(searchObjCopy);
+		},
+		
+		...mapMutations({
+			setSearchObj: "SET_SEARCHOBJ"
+		})
 	}
 }
 </script>

@@ -70,6 +70,16 @@ const mutations = {
 	[types.SET_VOLUME](state, volume) {
 	  state.volume = volume
 	},
+	
+	// 搜索对象
+	[types.SET_SEARCHOBJ](state, searchObj) {
+	  state.searchObj = searchObj
+	},
+	
+	// 主题对象
+	[types.SET_THEMEOBJ](state, themeObj) {
+	  state.themeObj = themeObj
+	},
 }
 
 export default mutations

@@ -50,28 +50,6 @@ export const getSingerAlbum = params => get(`${baseUrl}/artist/album`, params) /
 
 export const getLyric = params => get(`${baseUrl}/lyric`, params) // 获取歌词
 
-
-
-
-
-
-
-export const getBookByWord = params => get(`${baseUrl}/search/wordbook`, params) // 根据关键字查询书籍
-
-export const getBookChapter = params => get(`${baseUrl}/get/chapter`, params) // 获取章节
-
-export const getCrawlChapter = params => get(`${baseUrl}/crawl/chapter`, params) // 爬取章节
-
-export const getHotWord = params => get(`${baseUrl}/search/hotWord`, params) // 获取搜索热词
-
-export const getBookDetail = params => get(`${baseUrl}/crawl/detail`, params) // 获取书籍详情
-
-export const getBookContent = params => get(`${baseUrl}/crawl/content`, params) // 获取正文(爬取)
-
-export const getContent = params => get(`${baseUrl}/get/content`, params) // 获取正文
-
-export const crawlBookTosql = params => get(`${baseUrl}/crawl/book`, params) // 爬取书籍到数据库
-
-export const crawlDetailsTosql = params => get(`${baseUrl}/crawl/alldetail`, params) // 从数据库获取bookId，批量爬取书籍详情并保存到数据库（阅读器用不到）
+export const getSearch = params => get(`${baseUrl}/search`, params) // 搜素
 
 

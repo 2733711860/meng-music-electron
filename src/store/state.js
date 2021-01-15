@@ -13,6 +13,14 @@ const state = {
 	mode: 'icon-xunhuanbofang', // 播放模式。icon-xunhuanbofang：顺序播放；icon-danquxunhuan：单曲循环；icon-suijibofang：随机播放。
 	isMute: false, // 是否静音
 	volume: 20, // 音量
+	searchObj: { // 搜索对象
+		showSearch: false, // 是否显示搜索页
+		searchKey: '', // 搜索关键字
+		isPreveEnter: 0 // 是否按下回车键，每按下一次，自增
+	},
+	themeObj: { // 主题对象
+		bgCoverIndex: '11',
+	}
 }
 
 export default state

@@ -61,13 +61,15 @@ export class Song {
 }
 
 export function createPlayList(music) {
+	var num = Math.floor(Math.random() * 10) + 1;
+	let avatar = (music.album && (music.album.picUrl)) || (music.al && music.al.picUrl) || require(`../../src/assets/image/${num}.jpg`);
   return new Song({
     id: music.id,
     name: music.name,
     singer: music.artists.length > 0 && filterSinger(music.artists),
     album: music.album.name,
     albumId: music.album.id, 
-    image: music.album.picUrl || null,
+    image: avatar,
     duration: music.duration / 1000,
     url: `https://music.163.com/song/media/outer/url?id=${music.id}.mp3`,
     like: music.like || false,

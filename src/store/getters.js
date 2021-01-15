@@ -39,3 +39,9 @@ export const isMute = state => state.isMute
 
 // 音量
 export const volume = state => state.volume
+
+// 搜索对象
+export const searchObj = state => state.searchObj
+
+// 主题对象
+export const themeObj = state => state.themeObj

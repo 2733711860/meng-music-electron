@@ -6,12 +6,14 @@
 			<music-header></music-header>
 			<router-view class="view-page"></router-view>
 			<music-footer></music-footer>
+			<Search></Search>
 		</div>
 		
 		<!-- 播放列表，历史记录 -->
 		<music-play></music-play>
 		
 		<music-lyric></music-lyric>
+		
 		<!--播放器-->
 		<music-audio></music-audio>
   </div>
@@ -24,21 +26,24 @@ import musicFooter from '@/components/music-footer.vue';
 import musicLyric from '@/components/music-lyric/music-lyric.vue';
 import musicAudio from '@/components/music-audio.vue';
 import musicPlay from '@/components/music-play';
+import Search from '@/components/Search';
 import { mapGetters, mapMutations, mapActions } from 'vuex';
 export default {
 	name: 'meng-music',
 	
 	components: {
-		musicLeft, musicHeader, musicFooter, musicLyric, musicAudio, musicPlay
+		musicLeft, musicHeader, musicFooter, musicLyric, musicAudio, musicPlay, Search
 	},
 	
 	computed: {
-	  ...mapGetters([ 'currentMusic' ]),
+	  ...mapGetters([ 'currentMusic', 'themeObj' ]),
 		
 		picUrl() {
-		  return this.currentMusic.id && this.currentMusic.image
-		  	? `url(${this.currentMusic.image}?param=300y300)`
-		  	: "url("+require('./assets/image/11.jpg')+")"
+			let bgUrl = require(`./assets/image/${this.themeObj.bgCoverIndex}.jpg`);
+			return "url("+bgUrl+")"
+		  // return this.currentMusic.id && this.currentMusic.image
+		  // 	? `url(${this.currentMusic.image}?param=300y300)`
+		  // 	: "url("+bgUrl+")"
 		},
 	},
 }
