@@ -17,7 +17,10 @@
 <script>
 import moment from 'moment';
 import { mapGetters, mapMutations, mapActions } from 'vuex';
+import { music } from '@/mixin/music.js';
 export default{
+	mixins: [ music ],
+	
 	data () {
 		return{
 			imgs: {
@@ -48,21 +51,7 @@ export default{
 			this.$router.push({
 				path: `/playlist/${this.rankDetail.id}`
 			})
-		},
-		
-		playThis(music, newMusics) { // 播放音乐
-			let list = [].concat(...newMusics);
-			let index = list.findIndex(item => item.id == music.id);
-			this.selectPlay({
-			  list,
-			  index,
-				music
-			});
-		},
-		
-		...mapActions([
-		  "selectPlay"
-		])
+		}
 	}
 }
 </script>

@@ -8,7 +8,7 @@
 import { mapGetters, mapMutations, mapActions } from 'vuex';
 import audioMusic from '@/utils/audio.js';
 import { music } from '@/mixin/music.js';
-import { getLyric } from '@/api';
+import { getLyric, getQQLyric, getMusicVKey } from '@/api';
 export default{
 	mixins: [music],
 	
@@ -44,9 +44,28 @@ export default{
 			if (newMusic.id === oldMusic.id) {
 		    return
 		  } else {
-		   	this.audioEle.src = newMusic.url;
-				this.audioEle.play();
-				this._getLyric(newMusic.id);
+				if (newMusic.isQQMusic) { // QQ音乐
+					getMusicVKey({
+						songmid: newMusic.mid
+					}).then(res => {
+						newMusic.url = res.response.playLists[0];
+						this.audioEle.src = newMusic.url;
+						this.audioEle.play();
+						if (newMusic.isQQMusic) {
+							this._getQQLyric(newMusic.mid);
+						} else {
+							this._getLyric(newMusic.id);
+						}
+					})
+				} else {
+					this.audioEle.src = newMusic.url;
+					this.audioEle.play();
+					if (newMusic.isQQMusic) {
+						this._getQQLyric(newMusic.mid);
+					} else {
+						this._getLyric(newMusic.id);
+					}
+				}
 		  }
 		},
 		
@@ -88,11 +107,19 @@ export default{
 					this.set_lyricObj('');
 				} else {
 					this.set_lyricObj(res.lrc.lyric);
-					// this.setNolyric(false)
-				  // let lyricc = await parseLyric(res.lrc.lyric)
-				  // this.setLyric(lyricc)
 				}
-				// silencePromise(this.audioEle.play())
+			})
+		},
+		
+		_getQQLyric(musicId) { // 获取歌词
+			getQQLyric({
+				songmid: musicId
+			}).then(res => {
+				if (res && res.response && res.response.code == 0 && res.response.lyric) {
+					this.set_lyricObj(res.response.lyric);
+				} else {
+					this.set_lyricObj('');
+				}
 			})
 		},
 		

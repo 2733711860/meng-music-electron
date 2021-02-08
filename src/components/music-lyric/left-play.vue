@@ -3,7 +3,7 @@
 		<div class="header ellipsis">播放队列</div>
 		
 		<div class="list">
-			<div class="item-music" v-for="(item, index) in musicList" :key="index + 'ply'" @dblclick="playThis(item, index)">
+			<div class="item-music" v-for="(item, index) in musicList" :key="index + 'ply'" @dblclick="playThisTwo(item, index)">
 				<div class="left ellipsis">
 					<span class="name ellipsis">{{item.name}}</span>
 					<music-load class="load" v-if="currentMusic.id == item.id"></music-load>
@@ -18,7 +18,10 @@
 import musicLoad from './music-load.vue';
 import { mapGetters, mapMutations, mapActions } from 'vuex';
 import { format } from '@/utils';
+import { music } from '@/mixin/music.js';
 export default {
+	mixins: [music],
+	
 	components: {
 		musicLoad
 	},
@@ -36,7 +39,7 @@ export default {
 	},
 	
 	methods: {
-		playThis(music, index) { // 播放音乐
+		playThisTwo(music, index) { // 播放音乐
 			this.selectPlay({
 			  list: this.musicList,
 			  index,

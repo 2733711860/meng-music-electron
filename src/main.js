@@ -13,6 +13,9 @@ import './assets/css/common.css';
 import 'swiper/dist/css/swiper.css';
 import './assets/Iconfont/css/iconfont.css'
 
+import VueCoreVideoPlayer from 'vue-core-video-player'
+Vue.use(VueCoreVideoPlayer)
+
 Vue.config.productionTip = false
 
 

@@ -46,8 +46,9 @@ function addWan(integer, number, mutiple, decimalDigit) {
 }
 
 export class Song {
-  constructor({ id, name, singer, album, image, duration, url, like, isSearch, albumId }) {
+  constructor({ id, mid, name, singer, album, image, duration, url, like, isSearch, albumId, isQQMusic }) {
     this.id = id
+		this.mid = mid
     this.name = name
     this.singer = singer
     this.album = album
@@ -57,6 +58,7 @@ export class Song {
     this.like = like
     this.isSearch = isSearch
     this.albumId = albumId
+		this.isQQMusic = isQQMusic
   }
 }
 
@@ -65,6 +67,7 @@ export function createPlayList(music) {
 	let avatar = (music.album && (music.album.picUrl)) || (music.al && music.al.picUrl) || require(`../../src/assets/image/${num}.jpg`);
   return new Song({
     id: music.id,
+		mid: null,
     name: music.name,
     singer: music.artists.length > 0 && filterSinger(music.artists),
     album: music.album.name,
@@ -73,13 +76,15 @@ export function createPlayList(music) {
     duration: music.duration / 1000,
     url: `https://music.163.com/song/media/outer/url?id=${music.id}.mp3`,
     like: music.like || false,
-    isSearch: false
+    isSearch: false,
+		isQQMusic: false
   })
 }
 
 export function createSheetToSong(music) {
   return new Song({
     id: music.id,
+		mid: null,
     name: music.name,
     singer: music.ar.length > 0 && filterSinger(music.ar),
     album: music.al.name,
@@ -88,7 +93,27 @@ export function createSheetToSong(music) {
     duration: music.dt / 1000,
     url: `https://music.163.com/song/media/outer/url?id=${music.id}.mp3`,
     like: music.like || false,
-    isSearch: false
+    isSearch: false,
+		isQQMusic: false
+  })
+}
+
+export function createQQMusic(music) {
+	var num = Math.floor(Math.random() * 10) + 1;
+	let avatar = music.album ? `http://imgcache.qq.com/music/photo/album_300/${music.album.id % 100}/300_albumpic_${music.album.id}_0.jpg` : require(`../../src/assets/image/${num}.jpg`);
+  return new Song({
+    id: music.id,
+		mid: music.mid,
+    name: music.name,
+    singer: music.singer.length > 0 && filterSinger(music.singer),
+    album: music.album.name,
+    albumId: music.album.id, 
+    image: avatar,
+    duration: music.interval,
+    url: null, // qq音乐每次都需要单独获取，有时效性
+    like: music.like || false,
+    isSearch: false,
+		isQQMusic: true
   })
 }
 

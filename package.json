@@ -14,6 +14,7 @@
   "dependencies": {
     "core-js": "^2.6.5",
     "vue": "^2.6.10",
+    "vue-core-video-player": "^0.2.0",
     "vue-electron": "^1.0.6",
     "vue-router": "^3.0.3",
     "vuex": "^3.0.1"

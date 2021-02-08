@@ -76,6 +76,16 @@ export const music = {
 			this.setIsMute(!this.isMute);
 		},
 		
+		playThis(music, newMusics) { // 播放音乐
+			let list = [].concat(...newMusics);
+			let index = list.findIndex(item => item.id == music.id);
+			this.selectPlay({
+			  list,
+			  index,
+				music
+			});
+		},
+		
 		...mapMutations({
 		  setAudioele: 'SET_AUDIOELE',
 			setPlaying: "SET_PLAYING",
@@ -85,5 +95,9 @@ export const music = {
 			setVolume: "SET_VOLUME",
 			setIsMute: 'SET_ISMUTE'
 		}),
+		
+		...mapActions([
+		  "selectPlay"
+		])
 	}
 }

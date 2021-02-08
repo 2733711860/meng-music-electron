@@ -16,7 +16,8 @@ const state = {
 	searchObj: { // 搜索对象
 		showSearch: false, // 是否显示搜索页
 		searchKey: '', // 搜索关键字
-		isPreveEnter: 0 // 是否按下回车键，每按下一次，自增
+		isPreveEnter: 0, // 是否按下回车键，每按下一次，自增
+		searchOrigin: '1', // 1：网易云；2：QQ音乐
 	},
 	themeObj: { // 主题对象
 		bgCoverIndex: '11',

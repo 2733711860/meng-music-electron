@@ -31,6 +31,7 @@
 <script>
 import { format } from '@/utils';
 import { mapGetters, mapMutations, mapActions } from 'vuex';
+import { getMusicVKey } from '@/api';
 export default {
 	props: {
 		songList: {
@@ -50,6 +51,32 @@ export default {
 			  index,
 				music
 			});
+		
+			// let arr = JSON.parse(JSON.stringify(this.songList));
+			// if (music.isQQMusic) { // QQ音乐
+			// 	getMusicVKey({
+			// 		songmid: music.mid
+			// 	}).then(res => {
+			// 		music.url = res.response.playLists[0];
+			// 		arr.map(item => {
+			// 			if (item.id == music.id) {
+			// 				item.url = res.response.playLists[0];
+			// 			}
+			// 			return item
+			// 		})
+			// 		this.selectPlay({
+			// 		  list: arr,
+			// 		  index,
+			// 			music
+			// 		});
+			// 	})
+			// } else {
+			// 	this.selectPlay({
+			// 	  list: arr,
+			// 	  index,
+			// 		music
+			// 	});
+			// }
 		},
 		
 		...mapActions([

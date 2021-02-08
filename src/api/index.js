@@ -52,4 +52,10 @@ export const getLyric = params => get(`${baseUrl}/lyric`, params) // 获取歌�
 
 export const getSearch = params => get(`${baseUrl}/search`, params) // 搜素
 
+// export const getQQSearch = params => get(`https://www.fastmock.site/mock/9d11ba8742b2555cfd3aaf42ab46f7bb/api/search`, params) // 搜素
 
+export const getQQSearch = params => get(`http://localhost:8080/getSearchByKey`, params) // QQ搜素
+
+export const getMusicVKey = params => get(`http://localhost:8080/getMusicVKey`, params) // 获取QQ歌曲VKey
+
+export const getQQLyric = params => get(`http://localhost:8080/getLyric`, params) // QQ歌曲歌词

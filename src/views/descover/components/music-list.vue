@@ -40,7 +40,10 @@ import Swiper from 'swiper';
 import { getNewSongs } from '@/api/index.js';
 import { createPlayList, format } from '@/utils';
 import { mapGetters, mapMutations, mapActions } from 'vuex';
+import { music } from '@/mixin/music.js';
 export default {
+	mixins: [ music ],
+	
 	components: {
 		Icon
 	},
@@ -111,16 +114,6 @@ export default {
 				result.push(arr.slice(i, i+5));
 			}
 			return result;
-		},
-		
-		playThis(music, newMusics) { // 播放音乐
-			let list = [].concat(...newMusics);
-			let index = list.findIndex(item => item.id == music.id);
-			this.selectPlay({
-			  list,
-			  index,
-				music
-			});
 		},
 		
 		...mapActions([

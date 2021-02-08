@@ -4,7 +4,7 @@
 		
 		<div class="search-result">
 			<el-tabs v-model="activeName">
-				<el-tab-pane label="单曲" name="first">
+				<el-tab-pane label="单曲" name="1">
 					<music-list :songList="songList"></music-list>
 					<el-pagination
 						@size-change="handleSizeChange"
@@ -13,11 +13,11 @@
 						:page-sizes="[10, 30, 50, 100]"
 						:page-size="pageSize"
 						layout="total, sizes, prev, pager, next, jumper"
-						:total="totalSong">
+						:total="total">
 					</el-pagination>
 				</el-tab-pane>
 				
-				<el-tab-pane label="歌单" name="second">
+				<el-tab-pane label="歌单" name="1000" v-if="searchObj.searchOrigin != '2'">
 					<div class="sheet-list">
 						<music-sheet
 							class="itemSheet" 
@@ -28,17 +28,18 @@
 					</div>
 					<el-pagination
 						class="sheet-pagination"
-						@size-change="handleSizeChangeSheet"
-						@current-change="handleCurrentChangeSheet"
-						:current-page="sheetPage"
+						@size-change="handleSizeChange"
+						@current-change="handleCurrentChange"
+						:current-page="currentPage"
 						:page-sizes="[10, 30, 50, 100]"
-						:page-size="pageSizeSheet"
+						:page-size="pageSize"
 						layout="total, sizes, prev, pager, next, jumper"
-						:total="totalSheet">
+						:total="total">
 					</el-pagination>
 				</el-tab-pane>
+				<el-tab-pane label="歌单" name="1000" v-if="searchObj.searchOrigin == '2'">敬请期待</el-tab-pane>
 				
-				<el-tab-pane label="MV" name="third">
+				<el-tab-pane label="MV" name="1004" v-if="searchObj.searchOrigin != '2'">
 					<div class="mv-list">
 						<music-mv 
 							class="item-mv" 
@@ -49,17 +50,18 @@
 					</div>
 					<el-pagination
 						class="sheet-pagination"
-						@size-change="handleSizeChangeMv"
-						@current-change="handleCurrentChangeMv"
-						:current-page="mvPage"
+						@size-change="handleSizeChange"
+						@current-change="handleCurrentChange"
+						:current-page="currentPage"
 						:page-sizes="[10, 30, 50, 100]"
-						:page-size="pageSizeMv"
+						:page-size="pageSize"
 						layout="total, sizes, prev, pager, next, jumper"
-						:total="totalMv">
+						:total="total">
 					</el-pagination>
 				</el-tab-pane>
-				<el-tab-pane label="专辑" name="fourth">敬请期待</el-tab-pane>
-				<el-tab-pane label="歌词" name="fifth">敬请期待</el-tab-pane>
+				<el-tab-pane label="MV" name="1004" v-if="searchObj.searchOrigin == '2'">敬请期待</el-tab-pane>
+				<el-tab-pane label="专辑" name="10">敬请期待</el-tab-pane>
+				<el-tab-pane label="歌词" name="1006">敬请期待</el-tab-pane>
 			</el-tabs>
 		</div>
 	</div>
@@ -67,11 +69,18 @@
 
 <script>
 import { mapGetters, mapMutations, mapActions } from 'vuex';
-import { getSearch } from '@/api';
-import { createPlayList } from '@/utils';
+import { getSearch, getQQSearch } from '@/api';
+import { createPlayList, createQQMusic } from '@/utils';
 import musicList from '@/views/Music/music-list.vue';
 import musicSheet from '@/views/descover/components/music-sheet.vue';
 import musicMv from '@/views/descover/components/music-mv.vue';
+const QQobj = {
+	'1': 'song', // 单曲
+	'10': 'album', // 专辑
+	'1000': 'playlist', // 歌单
+	'1004': 'mv', // MV
+	'1006': 'lyric' // 歌词
+}
 export default{
 	components: {
 		musicList, musicSheet, musicMv
@@ -79,19 +88,13 @@ export default{
 	
 	data() {
 		return {
-			activeName: 'first',
+			activeName: '1',
 			currentPage: 1,
 			pageSize: 10,
 			songList: [], // 单曲列表
-			totalSong: 0, // 单曲总数
-			sheetPage: 1,
-			pageSizeSheet: 10,
+			total: 0, // 单曲总数
 			sheetList: [], // 歌单列表
-			totalSheet: 0, // 歌单总数
-			mvPage: 1,
-			pageSizeMv: 10,
 			mvList: [], // MV列表
-			totalMv: 0, // MV总数
 		}
 	},
 	
@@ -105,20 +108,11 @@ export default{
 	
 	watch: {
 		isSearch() {
-			this.getSearchSong(1, this.pageSize, this.currentPage);
+			this.getFuncOb();
 		},
 		
 		activeName() { // 监听标签页变化
-			if (this.activeName == 'first') { // 单曲
-				this.currentPage = 1;
-				this.getSearchSong(1, this.pageSize, this.currentPage);
-			} else if (this.activeName == 'second') { // 歌单
-				this.sheetPage = 1;
-				this.getSearchSong(1000, this.pageSizeSheet, this.sheetPage);
-			} else if (this.activeName == 'third') { // MV
-				this.mvPage = 1;
-				this.getSearchSong(1004, this.pageSizeMv, this.mvPage);
-			}
+			this.getFuncOb();
 		}
 	},
 	
@@ -130,15 +124,14 @@ export default{
 				offset: (page - 1) * size,
 				type: type // 1: 单曲, 10: 专辑, 100: 歌手, 1000: 歌单, 1002: 用户, 1004: MV, 1006: 歌词, 1009: 电台, 1014: 视频, 1018:综合
 			}).then(res => {
-				console.log(res)
 				if (type == 1) { // 单曲
-					this.totalSong = res.result.songCount;
+					this.total = res.result.songCount;
 					this.songList = this._formatSongs(res.result.songs);
 				} else if (type == 1000) { // 歌单
-					this.totalSheet = res.result.playlistCount;
+					this.total = res.result.playlistCount;
 					this.sheetList = res.result.playlists;
 				} else if (type == 1004) { // MV
-					this.totalMv = res.result.mvCount;
+					this.total = res.result.mvCount;
 					this.mvList = res.result.mvs;
 				}
 			})
@@ -158,34 +151,49 @@ export default{
 		handleSizeChange(val) { // 单曲每页条数
 			this.currentPage = 1;
 			this.pageSize = val;
-			this.getSearchSong(1, this.pageSize, this.currentPage);
+			this.getFuncOb();
 		},
 		
 		handleCurrentChange(val) { // 单曲当前页
 			this.currentPage = val;
-			this.getSearchSong(1, this.pageSize, this.currentPage);
+			this.getFuncOb();
 		},
 		
-		handleSizeChangeSheet(val) { // 歌单每页条数
-			this.sheetPage = 1;
-			this.pageSizeSheet = val;
-			this.getSearchSong(1000, this.pageSizeSheet, this.sheetPage);
+		getQQmusic(type, size, page) { // 搜索qq音乐
+			if (type != '1') {
+				this.$message.error('QQ音乐暂只支持单曲查询');
+				return;
+			}
+			getQQSearch({
+				key: this.searchObj.searchKey,
+				limit: size,
+				page: page,
+				remoteplace: QQobj[type] // song: 单曲, album: 专辑, user: 歌手, playlist: 歌单, user: 用户, mv: MV, lyric: 歌词
+			}).then(res => {
+				if (type == 'song') { // 单曲
+					this.total = res.response.data.song.totalnum;
+					this.songList = this._formatQQSongs(res.response.data.song.list);
+				}
+			})
 		},
 		
-		handleCurrentChangeSheet(val) { // 歌单当前页
-			this.sheetPage = val;
-			this.getSearchSong(1000, this.pageSizeSheet, this.sheetPage);
+		_formatQQSongs(list) { // 歌曲数据处理
+		  let ret = []
+		  list.forEach(item => {
+		    const musicData = item
+		    if (musicData.id) {
+		      ret.push(createQQMusic(musicData))
+		    }
+		  })
+		  return ret
 		},
 		
-		handleSizeChangeMv(val) { // MV每页条数
-			this.mvPage = 1;
-			this.pageSizeMv = val;
-			this.getSearchSong(1004, this.pageSizeMv, this.mvPage);
-		},
-		
-		handleCurrentChangeMv(val) { // MV当前页
-			this.mvPage = val;
-			this.getSearchSong(1004, this.pageSizeMv, this.mvPage);
+		getFuncOb() {
+			if (this.searchObj.searchOrigin == '1') { // 网易云
+				this.getSearchSong(this.activeName, this.pageSize, this.currentPage);
+			} else if (this.searchObj.searchOrigin == '2') { // QQ音乐
+				this.getQQmusic(this.activeName, this.pageSize, this.currentPage);
+			}
 		},
 		
 		...mapMutations({

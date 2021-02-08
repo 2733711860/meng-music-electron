@@ -1,12 +1,18 @@
 <template>
 	<div class="header">
-		<el-input
-			class="search"
-			placeholder="大天蓬"
-			prefix-icon="el-icon-search"
+		<el-input placeholder="大天蓬" v-model="searchKey" class="search" 
+			prefix-icon="el-icon-search" 
 			clearable
-			v-model="searchKey"
-			@keyup.enter.native="focus">
+			@keyup.enter.native="focus"
+		>
+			<el-select v-model="selectValue" slot="prepend" placeholder="请选择">
+				<el-option
+					v-for="item in options"
+					:key="item.value"
+					:label="item.label"
+					:value="item.value">
+				</el-option>
+			</el-select>
 		</el-input>
 		
 		<div class="right">
@@ -32,7 +38,11 @@ export default {
 	
 	data () {
 		return {
-			searchKey: ''
+			searchKey: '',
+			selectValue: '1',
+			options: [
+				{value: '1', label: '网易云音乐'}, {value: '2', label: 'QQ音乐'}
+			]
 		}
 	},
 	
@@ -56,6 +66,7 @@ export default {
 			searchObjCopy.showSearch = true;
 			searchObjCopy.searchKey = this.searchKey ? this.searchKey : '大天蓬';
 			searchObjCopy.isPreveEnter++;
+			searchObjCopy.searchOrigin = this.selectValue;
 			this.setSearchObj(searchObjCopy);
 		},
 		
@@ -77,7 +88,7 @@ export default {
 		background-color: #fff;
 		-webkit-app-region: drag;
 		.search{
-			width: 300px;
+			width: 400px;
 			-webkit-app-region: no-drag;
 		}
 		.right{
@@ -92,7 +103,6 @@ export default {
 	.header{
 		.search{
 			.el-input__inner{
-				border-radius: 100px;
 				height: 35PX;
 				line-height: 35PX;
 				font-size: 13PX;
@@ -100,6 +110,12 @@ export default {
 			.el-input__icon{
 				line-height: 35PX;
 			}
+		}
+		.input-with-select .el-input-group__prepend {
+			background-color: #fff;
+		}
+		.el-select .el-input {
+			width: 125px;
 		}
 	}
 </style>
